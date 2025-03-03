@@ -1,19 +1,6 @@
 # -McKenna-s-Law-of-Dynamic-Resistance
 
 
-I'll draft a structured scientific paper outlining **McKenna’s Law of Dynamic Resistance**, including its theoretical foundation, simulation methodology, and potential applications. This will be formatted as a formal research paper suitable for arXiv or academic submission.
-
-The paper will include:
-1. **Abstract** – A concise summary of McKenna’s Law and its significance.
-2. **Introduction** – Background on adaptive resistance networks, inspiration from ER fluids, and motivation for the work.
-3. **Theoretical Framework** – Formal definition of McKenna’s Law, mathematical formulation, and connections to existing physical and computational principles.
-4. **Methodology** – Explanation of the simulation approach, key equations, and implementation details.
-5. **Results & Discussion** – Interpretation of simulation outputs, comparisons with existing models, and practical implications.
-6. **Applications** – Potential uses in circuit design, optimization, and dynamic network modeling.
-7. **Conclusion & Future Work** – Summary of contributions and potential research directions.
-
-I will get started on drafting the document and let you know when it's ready for review.
-
 # McKenna’s Law of Dynamic Resistance: Theory, Simulation, and Applications
 
 ## Abstract  
