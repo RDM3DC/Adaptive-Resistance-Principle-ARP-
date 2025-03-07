@@ -66,7 +66,7 @@ This condition holds true irrespective of the number of quantum paths (tested: 5
 #### ARP Governing Equation:
 
 \[
-\frac{dG_{ij}}{dt} = \alpha |I_{ij}| - \mu G_{ij}
+\$$frac{dG_{ij}}{dt} = \alpha |I_{ij}| - \mu G_{ij}$$
 \]
 
 #### Observed Equilibrium:
