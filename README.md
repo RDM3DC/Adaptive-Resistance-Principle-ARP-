@@ -58,7 +58,7 @@ We anticipate ARP will foster innovative research at the intersection of physics
 The Adaptive Resistance Principle (ARP), when applied to quantum interference simulations, consistently converges to a stable equilibrium conductance value:
 
 \[
-G_{eq} \approx 1.91839999999892896198616654146462678909301757812500
+G_{eq} \approx ARP equilibrium is stable at 1.9184 (or 1.918638 numerically), consistent across multiple runs.
 \]
 
 This condition holds true irrespective of the number of quantum paths (tested: 500, 1000, 2000, 5000), suggesting a fundamental equilibrium constant within ARP-driven quantum systems.
