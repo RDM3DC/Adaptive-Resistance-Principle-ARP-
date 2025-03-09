@@ -77,3 +77,4 @@ This condition holds true irrespective of the number of quantum paths (tested: 5
 
 This result may imply a deeper, possibly universal principle linking adaptive network dynamics and quantum interference phenomena.
 
+![image](https://github.com/user-attachments/assets/fa5c8188-d7a8-4b76-887d-d963c27fd51c)
