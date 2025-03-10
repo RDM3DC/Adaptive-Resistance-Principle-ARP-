@@ -17,7 +17,7 @@ Mathematically, conductance $G_{ij}(t) = 1/R_{ij}(t)$ evolves according to:
 
 $$\frac{dG_{ij}}{dt} = \alpha |I_{ij}| - \mu G_{ij}.$$
 
-This formula reflects adaptive dynamics inspired by slime mold and ant colony systems, capturing both reinforcement and decay effects crucial for optimization.
+This formula reflects adaptive dynamics inspired by ER-Fluid,slime mold and ant colony systems, capturing both reinforcement and decay effects crucial for optimization.
 
 ## Methodology  
 We simulated ARP using a graph-based resistor network:
