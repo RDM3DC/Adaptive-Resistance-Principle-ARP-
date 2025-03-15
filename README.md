@@ -80,7 +80,6 @@ This result may imply a deeper, possibly universal principle linking adaptive ne
 ![image](https://github.com/user-attachments/assets/fa5c8188-d7a8-4b76-887d-d963c27fd51c)     
 
 
-MAEL (McKenna’s Adaptive Electrical Law) Analysis and its Implications for P vs NP
 
 Introduction
 
