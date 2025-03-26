@@ -142,5 +142,5 @@ Clearly present AIN's implications for computational complexity and optimization
 
 Would you like to refine or expand any part of this outline further?
 
-
+https://www.reddit.com/r/t5_dzv92y/s/06kOYF0sPn
 
