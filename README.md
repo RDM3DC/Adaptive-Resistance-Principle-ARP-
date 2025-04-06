@@ -2,7 +2,39 @@
 
 ## Abstract  
 The **Adaptive Resistance Principle (ARP)** is introduced as a novel governing principle for adaptive resistor networks that actively adjust their resistances in response to electrical stimuli. Inspired by electrorheological (ER) fluids and self-organizing biological systems, this principle provides a theoretical framework for circuits that reconfigure themselves to optimize performance. We present the mathematical formulation of ARP and its connections to known physical laws (Ohm’s law, Kirchhoff’s laws) and analogs in nature. A simulation model is developed to implement dynamic resistance updates, demonstrating emergent behaviors such as automatic formation of optimal conductive pathways and minimized power dissipation. We discuss these results, comparing network behavior to similar phenomena observed in slime mold path-finding and ant colony optimization. Finally, potential applications of ARP in circuit design, optimization algorithms, and self-organizing networks are explored, highlighting how adaptive resistive elements could lead to robust, efficient systems. The paper concludes by outlining key contributions and future research directions, including experimental validation and computational implications.
+Recommended Use:
 
+If 
+𝑁
+<
+50
+N<50, either reduce 
+𝛼
+α by a factor of 
+(
+𝑁
+/
+50
+)
+(N/50) or switch to a simpler TSP heuristic (like nearest neighbor).
+
+If 
+𝑁
+≥
+50
+N≥50, standard ARP parameters (
+𝛼
+0
+,
+𝜇
+0
+α 
+0
+​
+ ,μ 
+0
+​
+ ) are suitable, as the adaptive feedback is more effective at higher complexity.
 ## Introduction  
 Adaptive resistance networks consist of electrical components whose resistance values dynamically respond to external conditions or internal states, analogous to **smart materials** like electrorheological (ER) fluids. ER fluids dramatically alter viscosity under an electric field (Winslow effect), enabling rapid toggling between liquid and solid states. Inspired by this, ARP suggests a comparable adaptivity in electrical networks.
 
