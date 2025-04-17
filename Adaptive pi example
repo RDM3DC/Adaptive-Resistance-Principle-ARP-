@@ -1,0 +1,47 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+# Generate a circular arc
+r = 1.0
+theta = np.linspace(0, np.pi/2, 100)
+x_arc = r * np.cos(np.pi/2 - theta)
+y_arc = r * np.sin(np.pi/2 - theta)
+
+# Generate chord approximation
+num_segments = 5
+theta_chord = np.linspace(0, np.pi/2, num_segments + 1)
+x_chord = r * np.cos(np.pi/2 - theta_chord)
+y_chord = r * np.sin(np.pi/2 - theta_chord)
+
+# Set up the figure
+fig, ax = plt.subplots()
+ax.set_aspect('equal')
+ax.set_xlim(0, 1.1)
+ax.set_ylim(0, 1.1)
+ax.set_title("Tracing the Curve: Electricity Flow vs Chord Segments")
+
+# Initialize plot elements
+line_arc, = ax.plot([], [], 'b-', label='Adaptive π (Arc)')
+line_chord, = ax.plot([], [], 'r--', label='Chord Segments')
+point, = ax.plot([], [], 'ko', markersize=4)
+ax.legend()
+
+def init():
+    line_arc.set_data([], [])
+    line_chord.set_data([], [])
+    point.set_data([], [])
+    return line_arc, line_chord, point
+
+def update(frame):
+    point.set_data([x_arc[frame]], [y_arc[frame]])
+    line_arc.set_data(x_arc[:frame+1], y_arc[:frame+1])
+    if frame == len(x_arc) - 1:
+        line_chord.set_data(x_chord, y_chord)
+    return line_arc, line_chord, point
+
+ani = animation.FuncAnimation(
+    fig, update, frames=len(x_arc), init_func=init, blit=False, interval=30, repeat=False, save_count=len(x_arc))
+
+# Save the animation
+ani.save("adaptive_pi_arc_vs_chord.gif", writer='pillow', fps=30)
