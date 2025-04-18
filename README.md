@@ -106,7 +106,7 @@ This condition holds true irrespective of the number of quantum paths (tested: 5
 
 - Reinforcement rate (\(\alpha\)): 0.01
 - Decay rate (\(\mu\)): 0.005
-- Equilibrium conductance (\(G_{eq}\)): ~1.918973821226721631398860664176297921115595584488060318551458159027743930544385182289780625234715685
+- Equilibrium conductance (\(G_{eq}\)): ~1.9184
 
 This result may imply a deeper, possibly universal principle linking adaptive network dynamics and quantum interference phenomena.
 
