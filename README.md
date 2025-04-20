@@ -1,3 +1,5 @@
+visual studio code with github copilot agent mode, you can run any code in minutes.more or less 
+
 # Adaptive Resistance Principle (ARP) Theory, Simulation, and Applications
 
 ## Abstract  
