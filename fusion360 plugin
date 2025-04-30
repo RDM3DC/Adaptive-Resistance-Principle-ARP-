@@ -1,0 +1,77 @@
+import adsk.core, adsk.fusion, traceback
+from ..lib import fusionAddInUtils as futil   # template helper
+
+CMD_ID     = 'piSquareCmd'
+CMD_NAME   = 'π‑Square'
+CMD_DESC   = 'Draws an adaptive square (straight edges for v1)'
+CMD_ResDir = './resources'        # leave empty for now (uses grey puzzle icon)
+
+_app = adsk.core.Application.get()
+_ui  = _app.userInterface
+
+# --- event: command created ---
+def on_cmd_created(args):
+    try:
+        cmd = args.command
+        inputs = cmd.commandInputs
+
+        inputs.addValueInput(
+            'side', 'Side Length', 'cm',
+            adsk.core.ValueInput.createByReal(5.0)
+        )
+
+        # execute handler
+        futil.add_handler(cmd.execute, on_execute)
+    except:
+        _ui.messageBox(traceback.format_exc())
+
+# --- event: execute ---
+def on_execute(args):
+    try:
+        side = args.command.commandInputs.itemById('side').value
+        design = adsk.fusion.Design.cast(_app.activeProduct)
+        root   = design.rootComponent
+        sketch = root.sketches.add(root.xYConstructionPlane)
+        lines  = sketch.sketchCurves.sketchLines
+
+        p0 = adsk.core.Point3D.create(0,     0,    0)
+        p1 = adsk.core.Point3D.create(side,  0,    0)
+        p2 = adsk.core.Point3D.create(side,  side, 0)
+        p3 = adsk.core.Point3D.create(0,     side, 0)
+
+        lines.addByTwoPoints(p0, p1)
+        lines.addByTwoPoints(p1, p2)
+        lines.addByTwoPoints(p2, p3)
+        lines.addByTwoPoints(p3, p0)
+    except:
+        _ui.messageBox(traceback.format_exc())
+
+# ---------- required by template ----------
+def start():
+    # Button definition
+    cmd_def = _ui.commandDefinitions.itemById(CMD_ID)
+    if not cmd_def:
+        cmd_def = _ui.commandDefinitions.addButtonDefinition(
+            CMD_ID, CMD_NAME, CMD_DESC, CMD_ResDir
+        )
+
+    # Put it in SOLID ▸ Create panel
+    ws  = _ui.workspaces.itemById('FusionSolidEnvironment')
+    pnl = ws.toolbarPanels.itemById('SolidCreatePanel')
+    if not pnl.controls.itemById(CMD_ID):
+        ctrl = pnl.controls.addCommand(cmd_def)
+        ctrl.isPromoted = True
+
+    # Connect main created handler
+    futil.add_handler(cmd_def.commandCreated, on_cmd_created)
+
+def stop():
+    ws  = _ui.workspaces.itemById('FusionSolidEnvironment')
+    pnl = ws.toolbarPanels.itemById('SolidCreatePanel')
+    ctrl = pnl.controls.itemById(CMD_ID)
+    if ctrl:
+        ctrl.deleteMe()
+
+    cmd_def = _ui.commandDefinitions.itemById(CMD_ID)
+    if cmd_def:
+        cmd_def.deleteMe()
