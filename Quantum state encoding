@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Quantum state encoding functions
+def K_quantum(r, alpha, beta, gamma, lambd=0.5):
+    return alpha * np.exp(-beta * r/r_s) + gamma * lambd
+
+r_vals = np.linspace(0, 5*r_s, 1000)
+
+# Schwarzschild radius for scaling (arbitrary units for demonstration)
+r_s = 1.0
+
+# Quantum State A (e.g., |ψ₁⟩)
+K_state_A = K_quantum(r_vals, 1.0, 0.5, 0.1)
+
+# Quantum State B (e.g., |ψ₂⟩)
+K_state_B = K_quantum(r_vals, 1.2, 0.6, 0.15)
+
+# Equations clearly documenting Adaptive π Geometry:
+# 1. Quantum-Encoded Curvature:
+#    K_ψ(r) = α_ψ exp(-β_ψ r/r_s) + γ_ψ λ
+#
+# 2. Modified Hawking Radiation Spectrum:
+#    S_ψ(ω) = S_thermal(ω)[1 + ε K_ψ(r_h)exp(-ζ ω)]
+#
+# 3. Photon Ring Radius Variation:
+#    R_ring(ψ) = R_Kerr(a*, θ)[1 + η K_ψ(r_ph)]
+#
+# 4. Gravitational Waveform Corrections:
+#    h_ψ(t) = h_GR(t)[1 + μ K_ψ(r_ISCO)exp(-ν t)]
+#
+# 5. Information Preservation Condition:
+#    lim_(r→0) K_ψ(r) = finite
+
+# Plot to show clearly distinct geometric encodings
+plt.figure(figsize=(10,6))
+plt.plot(r_vals/r_s, K_state_A, lw=2, label='Quantum State A (|ψ₁⟩)')
+plt.plot(r_vals/r_s, K_state_B, lw=2, label='Quantum State B (|ψ₂⟩)', linestyle='--')
+plt.xlabel('Radius (units of r_s)')
+plt.ylabel('Adaptive Curvature K(r)')
+plt.title('Quantum Information Encoding in Adaptive π Geometry')
+plt.grid(True)
+plt.legend()
+plt.show()
