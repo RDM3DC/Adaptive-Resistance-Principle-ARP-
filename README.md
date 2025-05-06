@@ -1,7 +1,8 @@
 visual studio code with github copilot agent mode, you can run any code in minutes.more or less 
 
 Discussions haa more info
-	LICENSE (MIT / Apache‑2.0)
+	
+LICENSE (MIT / Apache‑2.0)
 # Adaptive Resistance Principle (ARP) Theory, Simulation, and Applications
 
 ## Abstract  
