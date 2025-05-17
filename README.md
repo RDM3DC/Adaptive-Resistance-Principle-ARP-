@@ -7,7 +7,7 @@ This repository contains experiments, code, and notes exploring the **Adaptive R
 The project includes a variety of Python scripts and markdown documents:
 
 - **double_slit.py** – Simulate a double‑slit experiment with an optional ARP "live aperture" mode.
-- **mckenna-law-simulation.py** – Demonstrates conductance evolution according to a simple ARP update rule.
+- **dynamic-resistance-simulation.py** – Demonstrates conductance evolution according to a simple ARP update rule.
 - **tsp*.py** – Prototype solvers that apply ARP ideas to travelling‑salesperson problems.
 - Various `.md` files with derivations, conceptual sketches, and notes about potential applications.
 

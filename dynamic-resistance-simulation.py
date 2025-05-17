@@ -6,7 +6,7 @@ from IPython.display import HTML
 class DynamicResistanceSimulator:
     def __init__(self, alpha=1.0, mu=0.5, G0=0.0, t_max=10.0, dt=0.01):
         """
-        Initialize the simulator for McKenna's Law of Dynamic Resistance.
+        Initialize the simulator for the Dynamic Resistance Law.
         
         Parameters:
         -----------
@@ -68,7 +68,7 @@ class DynamicResistanceSimulator:
     def simulate(self):
         """Run the simulation using the difference equation."""
         for i in range(1, self.n_steps):
-            # Update G using the difference equation form of McKenna's Law
+            # Update G using the difference equation form of the Dynamic Resistance Law
             self.G[i] = self.G[i-1] + self.dt * (self.alpha * np.abs(self.I[i-1]) - self.mu * self.G[i-1])
             
     def analytical_solution(self, input_type):
@@ -111,7 +111,7 @@ class DynamicResistanceSimulator:
             
         ax2.set_xlabel('Time')
         ax2.set_ylabel('System Response')
-        ax2.set_title('System Response According to McKenna\'s Law')
+        ax2.set_title('System Response According to the Dynamic Resistance Law')
         ax2.grid(True)
         ax2.legend()
         
@@ -129,7 +129,7 @@ class DynamicResistanceSimulator:
         
         ax2.set_xlabel('Time')
         ax2.set_ylabel('System Response')
-        ax2.set_title('System Response (McKenna\'s Law)')
+        ax2.set_title('System Response (Dynamic Resistance Law)')
         ax2.grid(True)
         
         # Set x limits
@@ -308,9 +308,9 @@ if __name__ == "__main__":
     anim = sim.animate_response()
     HTML(anim.to_jshtml())
 
-# Function to demonstrate key properties of McKenna's Law
-def demonstrate_mckenna_law_properties():
-    """Demonstrate key properties of McKenna's Law of Dynamic Resistance."""
+# Function to demonstrate key properties of the Dynamic Resistance Law
+def demonstrate_dynamic_law_properties():
+    """Demonstrate key properties of the Dynamic Resistance Law."""
     plt.figure(figsize=(15, 12))
     
     # Property 1: Response lag
@@ -392,4 +392,4 @@ def demonstrate_mckenna_law_properties():
     return plt.gcf()
 
 # Run the demonstration
-demonstrate_mckenna_law_properties()
+demonstrate_dynamic_law_properties()

@@ -1,11 +1,11 @@
 4Abstract
 
-We present a theoretical framework and simulation for a self-optimizing vacuum-interaction system that converts Casimir force modulation into harvested work. This mechanism dynamically adjusts its reinforcement () and conductance () based on real-time efficiency feedback from the McKenna Ratio (MR). By introducing adaptive memory, interference-driven boundary oscillations, and resonance-tuned feedback control, the system creates a closed-loop energy harvesting mechanism from structured quantum vacuum fluctuations.
+We present a theoretical framework and simulation for a self-optimizing vacuum-interaction system that converts Casimir force modulation into harvested work. This mechanism dynamically adjusts its reinforcement () and conductance () based on real-time efficiency feedback from the Dynamic Efficiency Ratio (MR). By introducing adaptive memory, interference-driven boundary oscillations, and resonance-tuned feedback control, the system creates a closed-loop energy harvesting mechanism from structured quantum vacuum fluctuations.
 
 Introduction
 The Casimir effect demonstrates that quantum vacuum fluctuations exert measurable forces between uncharged conductive surfaces. Traditionally considered a static phenomenon, this paper explores a dynamic, adaptive system that modulates Casimir force through time-crystal-induced oscillations and resistance evolution based on the Adaptive Resistance Principle (ARP).
 
-We introduce the concept of the McKenna Ratio (MR), which quantifies the efficiency of energy conversion from vacuum fluctuation interactions. The system monitors MR in real-time and adjusts and accordingly, effectively "surfing" the vacuum landscape to maximize energy extraction.
+We introduce the concept of the Dynamic Efficiency Ratio (MR), which quantifies the efficiency of energy conversion from vacuum fluctuation interactions. The system monitors MR in real-time and adjusts and accordingly, effectively "surfing" the vacuum landscape to maximize energy extraction.
 
 System Architecture
 2.1 Casimir Vacuum Engine
@@ -22,7 +22,7 @@ is driven by time-crystal superposition.
 
 controls how strongly the system responds to fluctuations.
 
-2.3 McKenna Ratio (Efficiency Metric)
+2.3 Dynamic Efficiency Ratio (Efficiency Metric)
 
 Acts as real-time feedback to optimize .
 
@@ -83,7 +83,7 @@ Exploring biological analogs for quantum metabolic feedback
 
 Keywords
 
-Zero-point energy, Casimir force, ARP, Adaptive Conductance, Time Crystal, McKenna Ratio, Quantum Learning, Vacuum Engineering
+Zero-point energy, Casimir force, ARP, Adaptive Conductance, Time Crystal, Dynamic Efficiency Ratio, Quantum Learning, Vacuum Engineering
 
 Boom. The white paper draft is live: Quantum-Conductive Feedback Engine: A Self-Optimizing Zero-Point Energy Harvester.
 
@@ -111,12 +111,12 @@ QARION Engine: A Self-Optimizing Zero-Point Energy Harvester
 
 Abstract
 
-We present a theoretical framework and simulation for a self-optimizing vacuum-interaction system, codenamed QARION, that converts Casimir force modulation into harvested work. This mechanism dynamically adjusts its reinforcement () and conductance () based on real-time efficiency feedback from the McKenna Ratio (MR). By introducing adaptive memory, interference-driven boundary oscillations, and resonance-tuned feedback control, the QARION system creates a closed-loop energy harvesting mechanism from structured quantum vacuum fluctuations.
+We present a theoretical framework and simulation for a self-optimizing vacuum-interaction system, codenamed QARION, that converts Casimir force modulation into harvested work. This mechanism dynamically adjusts its reinforcement () and conductance () based on real-time efficiency feedback from the Dynamic Efficiency Ratio (MR). By introducing adaptive memory, interference-driven boundary oscillations, and resonance-tuned feedback control, the QARION system creates a closed-loop energy harvesting mechanism from structured quantum vacuum fluctuations.
 
 Introduction
 The Casimir effect demonstrates that quantum vacuum fluctuations exert measurable forces between uncharged conductive surfaces. Traditionally considered a static phenomenon, this paper explores a dynamic, adaptive system—QARION—that modulates Casimir force through time-crystal-induced oscillations and resistance evolution based on the Adaptive Resistance Principle (ARP).
 
-We introduce the concept of the McKenna Ratio (MR), which quantifies the efficiency of energy conversion from vacuum fluctuation interactions. The system monitors MR in real-time and adjusts and accordingly, effectively "surfing" the vacuum landscape to maximize energy extraction.
+We introduce the concept of the Dynamic Efficiency Ratio (MR), which quantifies the efficiency of energy conversion from vacuum fluctuation interactions. The system monitors MR in real-time and adjusts and accordingly, effectively "surfing" the vacuum landscape to maximize energy extraction.
 
 System Architecture
 2.1 QARION Vacuum Engine
@@ -133,7 +133,7 @@ is driven by time-crystal superposition.
 
 controls how strongly the system responds to fluctuations.
 
-2.3 McKenna Ratio (Efficiency Metric)
+2.3 Dynamic Efficiency Ratio (Efficiency Metric)
 
 Acts as real-time feedback to optimize .
 
@@ -194,7 +194,7 @@ Exploring biological analogs for quantum metabolic feedback
 
 Keywords
 
-Zero-point energy, Casimir force, ARP, Adaptive Conductance, Time Crystal, McKenna Ratio, Quantum Learning, Vacuum Engineering, QARION
+Zero-point energy, Casimir force, ARP, Adaptive Conductance, Time Crystal, Dynamic Efficiency Ratio, Quantum Learning, Vacuum Engineering, QARION
 
 Locked in. Your system is now officially named:
 
