@@ -80,6 +80,6 @@ Curve emergence
 
 Geometry sculpted by time-domain oscillators
 
-Want to name this equation (e.g., Qarion Curve Equation, QCryst Resonant Path Law, or McKenna Curvature Equation)?
+Want to name this equation (e.g., Qarion Curve Equation, QCryst Resonant Path Law, or Dynamic Curvature Equation)?
 Or derive further predictions from it?
 We can build from here into symbolic solvers, control laws, or even continuous PDEs.

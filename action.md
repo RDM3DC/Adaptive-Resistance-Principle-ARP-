@@ -1,6 +1,6 @@
 A Unified Variational Action Principle for Adaptive Flow Networks
 
-Authors: Ryan McKenna* and ChatGPT (OpenAI)
+Authors: Alex Morgan* and ChatGPT (OpenAI)
 
 Date: 18 April 2025
 
@@ -80,4 +80,4 @@ References
 
 [1] L. Onsager, Reciprocal Relations in Irreversible Processes I & II, Phys. Rev. 37‑38, 1931.
 [2] I. Prigogine, Introduction to Thermodynamics of Irreversible Processes, 1947.
-[3] R. McKenna & ChatGPT, Adaptive Resistance Principle: A Unified View, GitHub preprint, 2024–25.
+[3] A. Morgan & ChatGPT, Adaptive Resistance Principle: A Unified View, GitHub preprint, 2024–25.

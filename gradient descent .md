@@ -50,7 +50,7 @@ F_{\text{resistance}} \propto -\mathcal{C},\frac{d\mathbf{x}}{dt}
 Interpretation:
 The faster and more complex the attempted system change, the stronger the opposing "force"—a clear, intuitive expression of dynamic resistance.
 
-5. Stability Criterion ("McKenna’s Stability Criterion"):
+5. Stability Criterion ("Dynamic Stability Criterion"):
 To prevent instability, this criterion must hold:
 
 [
