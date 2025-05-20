@@ -17,6 +17,13 @@ Most scripts depend on `numpy` and `matplotlib`. Run them with a standard Python
 python3 double_slit.py
 ```
 https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide
+
+https://chatgpt.com/g/g-682c76f252c081919e8bf592dda2bf96-adaptive-pi-geometry
+
+https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant
+
+https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer
+
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
