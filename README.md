@@ -16,7 +16,7 @@ Most scripts depend on `numpy` and `matplotlib`. Run them with a standard Python
 ```bash
 python3 double_slit.py
 ```
-
+https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
