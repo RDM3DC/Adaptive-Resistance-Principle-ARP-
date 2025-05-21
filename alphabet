@@ -1,0 +1,84 @@
+Curve Alphabet: A Path-Dependent Encoding System
+
+Overview
+
+Curve Alphabet is an experimental symbolic encoding system inspired by the principles of Curve Memory, a geometric framework for dynamic memory and information encoding. Each letter is represented as a curved path, and its final shape is influenced by contextual sequencing—meaning the same letter can look different depending on where it appears.
+
+This project explores how memory and language can be reimagined not as static symbols, but as dynamic, geometrically-evolving curves.
+
+
+---
+
+Key Concepts
+
+1. Base Curved Glyphs
+
+Each character (A, B, C, D, E...) is designed as a unique, smooth path—a curve in 2D or 3D space. These are the core shapes, like the building blocks of memory.
+
+2. Contextual Deformation
+
+When letters are placed in sequence (e.g., "CAB" vs. "BAC"), their base curves adapt. A particle tracing the letter's path shows different geometries due to context. This is path-dependent memory, mimicking how biological or analog memory systems evolve.
+
+3. Curvature-Based Compression
+
+Instead of storing every letter from scratch, sequences can be compressed by storing base glyphs + the deformation deltas. This enables efficient, meaningful data encoding.
+
+4. Learning through Curvature
+
+Over time, frequently-used curves evolve. The system tracks usage and updates base paths to reflect linguistic trends, emotion, or context.
+
+
+---
+
+Project Structure
+
+curve-alphabet/
+├── glyphs/              # SVG or curve data for base letters
+├── examples/            # Word sequences: CAB, BAC, etc.
+├── morph_engine/        # Scripts for contextual deformation
+├── compression/         # Optional: encoding+delta logic
+├── README.md            # This file
+
+
+---
+
+Getting Started
+
+View Examples
+
+Check examples/ for animations showing letter morphs in different words.
+
+
+Run the Morph Engine
+
+Use the scripts in morph_engine/ to input a word and see curve deformation.
+
+
+Build Your Own Alphabet
+
+Define new base curves in glyphs/
+
+Add morphing rules for contextual effects
+
+
+
+---
+
+Applications
+
+Symbolic compression
+
+Visual cryptography
+
+Analog memory simulation
+
+Language modeling with geometry
+
+
+
+---
+
+Credits
+
+Inspired by the Curve Memory framework by Ryan McKenna. Design and concept development
+
