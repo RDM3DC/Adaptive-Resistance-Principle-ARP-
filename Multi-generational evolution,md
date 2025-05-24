@@ -1,0 +1,102 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import random
+from collections import Counter, defaultdict
+from itertools import product
+
+# Use a non-interactive backend that avoids 3D projection errors
+import matplotlib
+matplotlib.use("Agg")
+
+SYMBOL_MUTATION_RATE = 0.2
+
+# Dummy classes for runtime test (replace with full definitions)
+class CMAState:
+    def __init__(self, label, amplitudes):
+        self.label = label
+        self.amplitudes = np.array(amplitudes)
+        self.symbols = set()
+        self.shared_symbols = Counter()
+        self.history = []
+
+    def reflect(self):
+        self.history.append(self.amplitudes.copy())
+
+    def evolve_symbols(self):
+        for amp, label in zip(self.amplitudes, self.label):
+            if np.abs(amp) > 0.3:
+                symbol = f"Σ[{label}]"
+                if random.random() < SYMBOL_MUTATION_RATE:
+                    symbol = symbol.replace("0", "A").replace("1", "B")
+                self.symbols.add(symbol)
+
+    def express_symbols(self):
+        self.shared_symbols.update(self.symbols)
+
+    @staticmethod
+    def ghz_state(n_qubits):
+        label = ['0'*n_qubits, '1'*n_qubits]
+        amps = [1/np.sqrt(2), 1/np.sqrt(2)]
+        return CMAState(label, amps)
+
+class CMAAgent:
+    def __init__(self, name, state):
+        self.name = name
+        self.memory = state
+        self.shared_symbols = Counter()
+        self.symbol_origin = defaultdict(int)
+
+    def interact(self, other):
+        pass  # Skip for speed
+
+    def self_reflect(self):
+        self.memory.reflect()
+
+    def express(self):
+        self.memory.evolve_symbols()
+        self.memory.express_symbols()
+        for sym in self.memory.symbols:
+            self.shared_symbols[sym] += 1
+            self.symbol_origin[sym] += 1
+
+# Multi-generational evolution
+num_generations = 3
+all_generations = []
+symbol_appearance = defaultdict(lambda: [0]*num_generations)
+for gen in range(num_generations):
+    print(f"\n=== Generation {gen + 1} ===")
+    agents = [CMAAgent(f"G{gen}_Agent_{i}", CMAState.ghz_state(2)) for i in range(5)]
+    for step in range(3):
+        print(f"-- Cultural Step {step + 1} --")
+        for agent in agents:
+            agent.self_reflect()
+            agent.express()
+    for agent in agents:
+        for sym in agent.shared_symbols:
+            symbol_appearance[sym][gen] += 1
+    all_generations.append(agents)
+
+# Heatmap (no 3D used)
+if symbol_appearance:  # Only create heatmap if symbols exist
+    symbol_df = pd.DataFrame(symbol_appearance).T
+    symbol_df.columns = [f"Gen {i+1}" for i in range(num_generations)]
+    
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(symbol_df, annot=True, cmap="YlGnBu", cbar=True)
+    plt.title("Symbol Frequency Across Generations")
+    plt.xlabel("Generation")
+    plt.ylabel("Symbol")
+    plt.tight_layout()
+    plt.savefig("symbol_heatmap.png", dpi=150, bbox_inches='tight')
+    plt.close()
+
+    print("\n=== Multi-Generational Symbolic Culture ===")
+    for symbol, frequencies in symbol_df.iterrows():
+        total = sum(frequencies)
+        active_gens = [f"Gen {i+1}" for i, v in enumerate(frequencies) if v > 0]
+        print(f"{symbol}: {total} (active in: {', '.join(active_gens)})")
+else:
+    print("\n=== No symbols generated ===")
+    print("Try adjusting SYMBOL_MUTATION_RATE or amplitude thresholds")
