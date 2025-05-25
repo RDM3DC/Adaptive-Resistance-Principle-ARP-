@@ -24,6 +24,8 @@ https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant
 
 https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer
 
+https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation
+
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
