@@ -26,6 +26,8 @@ https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer
 
 https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation
 
+https://chatgpt.com/g/g-682e4bf216408191bcc7af378a49ba26-curve-alphabet-assistant
+
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
