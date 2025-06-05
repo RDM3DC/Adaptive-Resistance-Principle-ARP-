@@ -11,11 +11,7 @@ The project includes a variety of Python scripts and markdown documents:
 - **tsp*.py** – Prototype solvers that apply ARP ideas to travelling‑salesperson problems.
 - Various `.md` files with derivations, conceptual sketches, and notes about potential applications.
 
-Most scripts depend on `numpy` and `matplotlib`. Run them with a standard Python 3 installation. For example:
-
-```bash
-python3 double_slit.py
-```
+Most scripts depend on `numpy` and `matplotlib`. 
 
 ## Interactive GPT guides
 
