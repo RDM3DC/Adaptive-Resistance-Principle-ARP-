@@ -16,7 +16,7 @@ Most scripts depend on `numpy` and `matplotlib`.
 ## Interactive GPT guides
 
 The links below open custom GPT assistants that explain different aspects of this project.
-An **OpenAI account** is required to access them.
+An **OpenAI account** (free) is required to access them.
 
 <p>
   <a href="https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide">
