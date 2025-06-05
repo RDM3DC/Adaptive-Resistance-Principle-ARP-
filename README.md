@@ -16,17 +16,37 @@ Most scripts depend on `numpy` and `matplotlib`. Run them with a standard Python
 ```bash
 python3 double_slit.py
 ```
-https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide
 
-https://chatgpt.com/g/g-682c76f252c081919e8bf592dda2bf96-adaptive-pi-geometry
+## Interactive GPT guides
 
-https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant
+The links below open custom GPT assistants that explain different aspects of this project.
+An **OpenAI account** is required to access them.
 
-https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer
-
-https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation
-
-https://chatgpt.com/g/g-682e4bf216408191bcc7af378a49ba26-curve-alphabet-assistant
+<p>
+  <a href="https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide">
+    <button>Adaptive Resistance Guide</button>
+  </a> – Overview of ARP fundamentals and core concepts.
+  <br/>
+  <a href="https://chatgpt.com/g/g-682c76f252c081919e8bf592dda2bf96-adaptive-pi-geometry">
+    <button>Adaptive Pi Geometry</button>
+  </a> – Learn how the πₐ constant adapts under different constraints.
+  <br/>
+  <a href="https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant">
+    <button>Curve Memory Assistant</button>
+  </a> – Explores encoding information in curves and shape memory.
+  <br/>
+  <a href="https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer">
+    <button>RealignR Optimizer</button>
+  </a> – Step-by-step guide to using the RealignR optimization routines.
+  <br/>
+  <a href="https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation">
+    <button>Geometric Neural Computation</button>
+  </a> – Discusses geometric approaches to neural computation.
+  <br/>
+  <a href="https://chatgpt.com/g/g-682e4bf216408191bcc7af378a49ba26-curve-alphabet-assistant">
+    <button>Curve Alphabet Assistant</button>
+  </a> – Interactive walkthrough of the curve-based alphabet.
+</p>
 
 ## License
 
