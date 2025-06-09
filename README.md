@@ -47,3 +47,6 @@ An **OpenAI account** is required to access them.
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
+
+
+https://cash.app/$rdm3d
