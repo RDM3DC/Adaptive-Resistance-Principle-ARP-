@@ -89,7 +89,7 @@ if symbol_appearance:  # Only create heatmap if symbols exist
     plt.xlabel("Generation")
     plt.ylabel("Symbol")
     plt.tight_layout()
-    plt.savefig("symbol_heatmap.png", dpi=150, bbox_inches='tight')
+    plt.savefig("images/symbol_heatmap.png", dpi=150, bbox_inches='tight')
     plt.close()
 
     print("\n=== Multi-Generational Symbolic Culture ===")
