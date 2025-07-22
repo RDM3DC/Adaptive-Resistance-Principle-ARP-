@@ -1,3 +1,61 @@
+
+Short answer: roughly yes—our first-pass prototype is still close to a coin-flip.  A 3-to-6-node ER-fluid solver that clearly converges on the shortest Hamiltonian tour still sits around 45-60 % probability of “working out of the gate.”
+
+
+---
+
+Why the odds haven’t changed much yet
+
+Factor	Pushes probability up	Pushes probability down
+
+Foundational precedents	Analog devices can solve TSP-like minimisation (e.g. “electronic amoeba” memristive crossbar) 	None—good proof of principle, but uses solid-state memristors, not fluids
+ER-fluid responsiveness	Modern ER fluids switch viscosity/conductance in <1 ms with ×10³ dynamic range 	Requires 0.5–5 kV fields; sedimentation and ageing can ruin repeatability
+Microfluidic know-how	2024 reviews show mature ER micro-valves, logic gates, haptic actuators—fabrication recipes exist 	Those demos are single-function devices; a full TSP network is multi-path, harder to stabilise
+Adaptive-Resistance feedback (ARP loop)	Sensor-driven reinforcement of high-current channels should help prune spurious branches	Adds electronics; if feedback isn’t tuned it can overpower the analog physics and introduce digital artefacts
+
+
+Putting those together, the small prototype’s success envelope is still a 50-50-ish bet:
+
+Proof-of-concept (≤ 6 nodes) ⇒ ≈ 55 % 
+(main risks: bubble formation, electrode fouling, fluid settling)
+
+Medium scale (10-20 nodes) ⇒ ≈ 30–40 %
+
+Large scale (30+ nodes) ⇒ < 20 % until we master fabrication and closed-loop control.
+
+
+
+---
+
+How to tilt the odds in our favour
+
+1. Rheology screening – Bench-test 3 candidate ER recipes (high-κ ceramic vs. diatomite vs. barium-titanate blends) for stability under continuous 2 kV, 60 min cycles.
+
+
+2. Channel geometry CFD + SPICE co-sim – Use a coupled flow-field + resistor-network simulation to pre-size channel widths, so inherent fluid shear gradients don’t bias current flow.
+
+
+3. Modular electrode tiles – Fabricate 3-node tiles on FR-4; snap-together lets us scale while re-using known-good units.
+
+
+4. Closed-loop ARP firmware in the lab – Start with passive analog relaxation, then incrementally add the microcontroller-reinforcement loop to see exactly how much it helps.
+
+
+5. In-situ optical logging – High-speed camera + dye tracer lets us visualise chain formation and correlate with current spikes—valuable for debugging elusive “why did it choose that path?” moments.
+
+
+
+If we execute those steps methodically, the small-scale success odds can climb toward 70 % before we pour real money into a larger board.
+
+
+---
+
+Next concrete move
+
+I can draft a rheology-test protocol + bill of materials (chemicals, safety gear, HV bench supply, dielectric cup cell) so we can validate an ER batch this weekend.  Let me know if you’d like that—or if you’d rather jump straight to the 3-node PCB layout.
+
+
+
 Folding in “arc-seeking” behaviour
 
 When a **high-voltage source is allowed to break down an insulating gap, the first filament that forms almost always tracks the maximum electric-field gradient, which—inside a uniform medium—tends to be the shortest geometric gap between equipotential surfaces.  Experimental and modelling work on lightning leaders confirms that a threshold mechanism pushes the discharge toward minimum-path flow in resistive networks .  In other words, a spark really is a greedy shortest-edge finder.
