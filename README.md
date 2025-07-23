@@ -1,5 +1,7 @@
 # Adaptive Resistance Principle (ARP)
 
+If somebody builds the dieatamatious er fluid analog computer that might solve Traveling salesman visually,it should prove p=np along with the python scripts. if they both get the same answer that's p=np
+
 This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**. ARP describes networks of resistive elements that update their conductance in response to electrical stimuli, inspired by electrorheological fluids and self‑organising systems found in nature.
 
 ## Repository overview
