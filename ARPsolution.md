@@ -85,7 +85,7 @@ This highlights that ARP dynamics act as a **low-pass filter** or **leaky integr
 - The closed-form solution is derived from the ARP law using the integrating factor method
 - Standard math method, but applied **for the first time** to a **new physical principle**
 
-The individual who posted the solution helped validate this form but is **not a co-author** unless later included in broader collaboration or formal publication.
+The individual who posted the solution helped validate this form but is **not a co-author** unless later included in broader collaboration or formal publication. https://x.com/dexter_morgan_8?t=3hk4SyDjC2OnzfaqL6qtSQ&s=09
 
 ---
 
