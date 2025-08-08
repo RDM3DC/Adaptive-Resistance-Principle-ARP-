@@ -1,0 +1,58 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+# --------------------------
+# ARP-Based Light Path Discovery
+# --------------------------
+
+# Grid and constants
+N = 40                        # Grid size
+alpha = 0.5                   # Reinforcement rate
+mu = 0.05                     # Decay rate
+timesteps = 150              # Number of time steps
+dt = 0.1
+
+# Initialize conductance matrix
+G = np.ones((N, N)) * 0.01
+
+# Flat πₐ field (could later add curvature)
+pi_a_field = np.full((N, N), np.pi)
+
+# Define light source and target
+source = (0, N//2)
+target = (N-1, N//2)
+
+# Define input intensity function (like a laser beam)
+def compute_input_intensity(t, G, pi_a_field):
+    I = np.zeros_like(G)
+    for i in range(N):
+        for j in range(N):
+            dx = target[0] - i
+            dy = target[1] - j
+            dist = np.sqrt(dx**2 + dy**2)
+            beam_profile = np.exp(-((j - N//2)**2) / 30)  # Gaussian beam center
+            I[i, j] = np.exp(-dist**2 / 100) * beam_profile
+    return I
+
+# Run simulation
+frames = []
+for t in range(timesteps):
+    I = compute_input_intensity(t, G, pi_a_field)
+    dG = alpha * np.abs(I) - mu * G
+    G += dG * dt
+    G = np.clip(G, 0, None)  # prevent negatives
+    frames.append(G.copy())
+
+# Animate result
+fig, ax = plt.subplots(figsize=(6, 6))
+im = ax.imshow(frames[0], cmap='hot', interpolation='nearest', vmin=0, vmax=np.max(frames[-1]))
+plt.title("ARP Light Path Discovery")
+plt.axis('off')
+
+def update(frame):
+    im.set_array(frames[frame])
+    return [im]
+
+ani = FuncAnimation(fig, update, frames=len(frames), interval=60, blit=True)
+plt.show()
