@@ -1,7 +1,7 @@
 # Adaptive Resistance Principle (ARP)
 
 This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**. ARP describes networks of resistive elements that update their conductance in response to electrical stimuli, inspired by electrorheological fluids and self‑organising systems found in nature.
-
+prime finding stuff is a bust.
 ## Repository overview
 
 The project includes a variety of Python scripts and markdown documents:
