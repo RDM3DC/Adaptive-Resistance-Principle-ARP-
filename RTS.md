@@ -1,5 +1,3 @@
-Awesome—here’s a tight, single-file LaTeX “one-pager” you can drop straight into GitHub. It’s a self-contained prereg + how-to 
-
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
@@ -170,7 +168,3 @@ Drop your CSVs, run the commands above, and attach:
 \textbf{Acknowledgements.} Thanks to groups suggesting LaH\textsubscript{10} DAC runs and Bell-chip tests; we will credit collaborators in the repo.
 
 \end{document}
-
-
-
-
