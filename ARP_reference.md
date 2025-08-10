@@ -1,23 +1,6 @@
-# Adaptive Resistance Principle (ARP)
+# Adaptive Resistance Principle (ARP) Reference
 
-This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**. ARP describes networks of resistive elements that update their conductance in response to electrical stimuli, inspired by electrorheological fluids and self‑organising systems found in nature.
-
-
-primes finding stuff is a bust. doesn't work.
-
-## Repository overview
-
-The project includes a variety of Python scripts and markdown documents:
-
-- **double_slit.py** – Simulate a double‑slit experiment with an optional ARP "live aperture" mode.
-- **dynamic-resistance-simulation.py** – Demonstrates conductance evolution according to a simple ARP update rule.
-- **tsp*.py** – Prototype solvers that apply ARP ideas to travelling‑salesperson problems.
-- Various `.md` files with derivations, conceptual sketches, and notes about potential applications.
-
-Most scripts depend on `numpy` and `matplotlib`.
-
-## ARP Reference
-For a standalone copy, see [ARP_reference.md](ARP_reference.md).
+## Core law (ARP)
 
 \[
 \textbf{Adaptive Resistance Principle (ARP):}\qquad 
@@ -30,7 +13,7 @@ For a standalone copy, see [ARP_reference.md](ARP_reference.md).
 - \( \alpha \): reinforcement rate
 - \( \mu \): decay (forgetting) rate
 
-### Closed-form solution (general \(I(t)\))
+## Closed-form solution (general \(I(t)\))
 
 \[
 \textbf{Closed-form:}\qquad 
@@ -44,29 +27,31 @@ G(t) = \big(e^{-\mu t} * \alpha\,|I(t)|\big) + G(0)e^{-\mu t},
 \quad \text{with kernel } k(t)=e^{-\mu t}\mathbf{1}_{t\ge 0}.
 \]
 
-### Special cases you’ll actually use
+## Special cases you’ll actually use
 
-**Constant input \(|I(t)| = I_0\)**
+### Constant input \(|I(t)| = I_0\)
 
 \[
 G(t) = G_\infty + \big(G(0)-G_\infty\big)e^{-\mu t},
 \qquad G_\infty = \frac{\alpha I_0}{\mu},\quad \tau=\mu^{-1}.
 \]
 
-**Piecewise-constant input (step changes)** over intervals \([t_k,t_{k+1})\) with level \(I_k\):
+### Piecewise-constant input (step changes)
+
+For intervals \([t_k,t_{k+1})\) with level \(I_k\):
 
 \[
 G(t) = G_\infty^{(k)} + \big(G(t_k^+) - G_\infty^{(k)}\big)e^{-\mu (t-t_k)},
 \qquad G_\infty^{(k)}=\frac{\alpha I_k}{\mu}.
 \]
 
-**Stationary ergodic input with mean \(\mathbb{E}[|I|]\)**
+### Stationary ergodic input with mean \(\mathbb{E}[|I|]\)
 
 \[
 \lim_{t\to\infty} G(t) = \frac{\alpha}{\mu}\,\mathbb{E}[|I|].
 \]
 
-### Transfer function view (LTI w.r.t. \(|I|\))
+## Transfer function view (LTI w.r.t. \(|I|\))
 
 Treat \(u(t)=|I(t)|\) as input:
 
@@ -77,7 +62,7 @@ Treat \(u(t)=|I(t)|\) as input:
 
 So ARP is an exponential low-pass tracker of \(|I|\) with cutoff \(\mu\).
 
-### Discrete-time (forward Euler, step \(\Delta t\))
+## Discrete-time (forward Euler, step \(\Delta t\))
 
 \[
 G_{k+1} = (1-\mu\Delta t)G_k + \alpha\Delta t\,|I_k|.
@@ -90,7 +75,7 @@ G_{k+1} = (1-\mu\Delta t)G_k + \alpha\Delta t\,|I_k|.
 \frac{G(z)}{U(z)} = \frac{\alpha\Delta t\,z^{-1}}{1-(1-\mu\Delta t)\,z^{-1}}.
 \]
 
-### Positivity, bounds, and monotonicity
+## Positivity, bounds, and monotonicity
 
 If \(G(0)\ge 0\) and \(|I(t)|\ge 0\) then \(G(t)\ge 0\) for all \(t\).
 If \(|I(t)|\le I_{\max}\):
@@ -101,7 +86,7 @@ If \(|I(t)|\le I_{\max}\):
 G(t)\text{ moves monotonically toward the current piecewise }G_\infty.
 \]
 
-### Global exponential stability (constant input)
+## Global exponential stability (constant input)
 
 Let \(e(t)=G(t)-G_\infty\). Then
 
@@ -111,7 +96,7 @@ Let \(e(t)=G(t)-G_\infty\). Then
 
 so \(G \to G_\infty\) globally and exponentially.
 
-### Simple closed-loop example (Ohmic coupling)
+## Simple closed-loop example (Ohmic coupling)
 
 If the environment is approximately Ohmic with voltage \(V(t)\) so that \(|I(t)|\approx |V(t)|\,G(t)\), then:
 
@@ -123,7 +108,7 @@ If the environment is approximately Ohmic with voltage \(V(t)\) so that \(|I(t)|
 - Threshold behavior: decay if \(|V|<\mu/\alpha\), growth if \(|V|>\mu/\alpha\).
   (In practice you add saturation/normalization to cap \(G\).)
 
-### Multi-edge/network form
+## Multi-edge/network form
 
 For edges \((i,j)\) with currents \(I_{ij}(t)\):
 
@@ -140,7 +125,7 @@ Vectorized with \(G\in\mathbb{R}^m_{\ge 0}\):
 where \(I\) can depend on states \(x\) and the network physics. Fixed points satisfy
 \(\mu G^\star = \alpha |I(x,G^\star)|\). Contraction holds if the sensitivity of \(I\) to \(G\) is small enough relative to \(\mu/\alpha\).
 
-### MD-ARP (optional extension with C,L)
+## MD-ARP (optional extension with C,L)
 
 When you want adaptive impedance, let conductance \(G\), capacitance \(C\), inductance \(L\) adapt to their “driving magnitudes”:
 
@@ -154,7 +139,7 @@ Same closed-form per coordinate; all inherit the low-pass tracking and stability
 
 ---
 
-### TL;DR (what to remember)
+## TL;DR (what to remember)
 
 - Law: \(\dot G=\alpha|I|-\mu G\).
 - Solution: \(G(t)=e^{-\mu t}\big[G(0)+\alpha\!\int_0^t e^{\mu s}|I(s)|ds\big]\).
@@ -162,41 +147,3 @@ Same closed-form per coordinate; all inherit the low-pass tracking and stability
 - Discrete: \(G_{k+1}=(1-\mu\Delta t)G_k+\alpha\Delta t|I_k|\).
 - Stability: global, exponential to the instantaneous \(G_\infty\); positive and bounded.
 
-
-## Interactive GPT guides
-
-The links below open custom GPT assistants that explain different aspects of this project.
-An **OpenAI account** is required to access them.
-
-<p>
-  <a href="https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide">
-    <button>Adaptive Resistance Guide</button>
-  </a> – Overview of ARP fundamentals and core concepts.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c76f252c081919e8bf592dda2bf96-adaptive-pi-geometry">
-    <button>Adaptive Pi Geometry</button>
-  </a> – Learn how the πₐ constant adapts under different constraints.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant">
-    <button>Curve Memory Assistant</button>
-  </a> – Explores encoding information in curves and shape memory.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer">
-    <button>RealignR Optimizer</button>
-  </a> – Step-by-step guide to using the RealignR optimization routines.
-  <br/>
-  <a href="https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation">
-    <button>Geometric Neural Computation</button>
-  </a> – Discusses geometric approaches to neural computation.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682e4bf216408191bcc7af378a49ba26-curve-alphabet-assistant">
-    <button>Curve Alphabet Assistant</button>
-  </a> – Interactive walkthrough of the curve-based alphabet.
-</p>
-
-## License
-
-This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
-
-
-https://cash.app/$rdm3d
