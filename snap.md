@@ -1,4 +1,4 @@
-Absolutely. Here’s a tight, paper-ready mapping from your ARP / adaptive-constants framework to the biological “snap” during viral entry (e.g., SARS-CoV-2 spike). It’s designed so you can drop it into your notes, README, or a short section of a manuscript.
+Absolutely. Here’s a tight, paper-ready mapping from your ARP / adaptive-constants framework to the biological “snap” during viral entr. It’s designed so you can drop it into your notes, README, or a short section of a manuscript.
 
 Biophysical ARP Analogy: Mapping the Viral “Snap” to Adaptive Resistance Dynamics
 
