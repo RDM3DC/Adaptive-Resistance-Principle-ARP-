@@ -1,827 +1,136 @@
-Curve Memory in 3D (CMA-3D)
-Overview
+# Curve Memory in 3D (CMA-3D)
 
+## Overview
 Curve Memory (CMA) is a compact, rigid-motion-invariant representation of curves.
-In 2D, a curve is uniquely determined (up to rigid motion) by its arclength parameterization and curvature:
 
-𝜅
-(
-𝑠
-)
-=
-∥
-𝑑
-𝑇
-𝑑
-𝑠
-∥
-κ(s)=
-	​
+- **2D curves** are determined by their arclength parameterization and curvature:
+  $$
+  \kappa(s) = \left\| \frac{d\mathbf{T}}{ds} \right\|
+  $$
+  where $\mathbf{T}(s)$ is the unit tangent at arclength $s$.
+
+- **3D space curves** require both curvature $\kappa(s)$ and torsion $\tau(s)$.
+  Together they uniquely determine the curve up to rigid motion.
+
+The **Frenet–Serret equations** describe this:
+$$
+\begin{aligned}
+\frac{d\mathbf{T}}{ds} &= \kappa(s)\,\mathbf{N}(s) \\\\
+\frac{d\mathbf{N}}{ds} &= -\kappa(s)\,\mathbf{T}(s) + \tau(s)\,\mathbf{B}(s) \\\\
+\frac{d\mathbf{B}}{ds} &= -\tau(s)\,\mathbf{N}(s)
+\end{aligned}
+$$
+
+---
+
+## CMA-3D Representation
+A curve’s memory is the tuple:
+$$
+\mathcal{M} = \big( L,\; u,\; \kappa(u),\; \tau(u) \big)
+$$
+
+- $L$: total curve length  
+- $u = s/L \in [0,1]$: normalized arclength  
+- $\kappa(u)$: curvature sequence  
+- $\tau(u)$: torsion sequence  
+
+Properties:
+- **Rigid-motion invariant**
+- **Scale aware** (via $L$)
+- **Lossless** (curve can be reconstructed)
+
+---
+
+## Discrete Formulation
+For polyline points $\{\mathbf{p}_i\}_{i=0}^N$:
+
+1. **Segments and arclengths**
+   $$
+   \ell_i = \|\mathbf{p}_{i+1}-\mathbf{p}_i\|, \quad
+   s_j = \sum_{i=0}^{j-1}\ell_i, \quad L = s_N
+   $$
+
+2. **Tangents**
+   $$
+   \mathbf{t}_i = \frac{\mathbf{p}_{i+1}-\mathbf{p}_i}{\ell_i}
+   $$
+
+3. **Curvature**
+   $$
+   \kappa_i \approx \frac{\|\mathbf{t}_i-\mathbf{t}_{i-1}\|}{\tfrac{1}{2}(\ell_{i-1}+\ell_i)}
+   $$
+
+4. **Torsion**  
+   Binormals:
+   $$
+   \mathbf{b}_i = \frac{\mathbf{t}_i \times \mathbf{t}_{i-1}}{\|\mathbf{t}_i \times \mathbf{t}_{i-1}\|}
+   $$
+   Torsion:
+   $$
+   \tau_i \approx \frac{\operatorname{sign}\!\big((\mathbf{b}_{i-1}\!\times\!\mathbf{b}_i)\cdot\mathbf{t}_i\big)\;
+   \angle(\mathbf{b}_{i-1},\mathbf{b}_i)}{\tfrac{1}{2}(\ell_{i-1}+\ell_i)}
+   $$
+
+---
+
+## Reconstruction
+Given $(\kappa(s), \tau(s))$, reconstruct by integrating Frenet–Serret:
+
+1. Start from $\mathbf{r}(0)$ with frame $(\mathbf{T},\mathbf{N},\mathbf{B})$  
+2. Step $\Delta s$:
+   - Rotate $(\mathbf{T},\mathbf{N})$ in $T$–$N$ plane by $\kappa \Delta s$  
+   - Twist $(\mathbf{N},\mathbf{B})$ around $\mathbf{T}$ by $\tau \Delta s$  
+   - Update:
+     $$
+     \mathbf{r}(s+\Delta s) = \mathbf{r}(s) + \mathbf{T}(s)\,\Delta s
+     $$
+3. Repeat until $s=L$.
+
+---
+
+## Global Quantities
+From CMA-3D:
+- **Total curvature**: $\int_0^L \kappa(s)\,ds$  
+- **Total torsion**: $\int_0^L |\tau(s)|\,ds$  
+- **Writhe/Twist estimates** for closed curves  
+
+---
+
+## Multi-Scale CMA
+- Downsample $\kappa,\tau$ into pyramids  
+- Store mean/std/min/max per level  
+- Enables Level-of-Detail (LOD) for retrieval vs reconstruction  
+
+---
+
+## Example: Helix
+For $\mathbf{r}(t) = (\cos t,\; \sin t,\; c t)$:
 
-ds
-dT
-	​
+- Curvature: $\kappa = \frac{1}{1+c^2}$  
+- Torsion: $\tau = \frac{c}{1+c^2}$  
 
-	​
+So its CMA-3D memory is simply constant $(\kappa,\tau)$ along $u$.
 
+---
 
-where 
-𝑇
-(
-𝑠
-)
-T(s) is the unit tangent vector at arclength 
-𝑠
-s.
+## Benefits
+- **Compression**: 10–60× smaller with negligible RMS error  
+- **Comparison**: Pose-invariant curve fingerprints  
+- **Reconstruction**: Regenerate curves at any sampling density  
+- **Integration**: Plug into CAD tools (sweeps, ribbons, lofts)  
+- **Learning**: Use $\kappa,\tau$ as sequence input for ML models  
 
-For 3D space curves, we extend this to CMA-3D by including torsion. Any sufficiently smooth space curve 
-𝑟
-(
-𝑠
-)
-r(s) is fully determined (up to rigid motion) by:
+---
 
-Curvature 
-𝜅
-(
-𝑠
-)
-κ(s)
+## Summary
+**CMA-3D** is the representation:
+$$
+\mathcal{M} = \big( L,\; u,\; \kappa(u),\; \tau(u) \big)
+$$
 
-Torsion 
-𝜏
-(
-𝑠
-)
-τ(s)
+- Compact  
+- Rigid-motion invariant  
+- Reconstructable  
+- Multi-scale ready  
 
-These are related by the Frenet–Serret equations:
-
-𝑑
-𝑇
-𝑑
-𝑠
-	
-=
-𝜅
-(
-𝑠
-)
- 
-𝑁
-(
-𝑠
-)
-
-
-
-
-𝑑
-𝑁
-𝑑
-𝑠
-	
-=
-−
-𝜅
-(
-𝑠
-)
- 
-𝑇
-(
-𝑠
-)
-+
-𝜏
-(
-𝑠
-)
- 
-𝐵
-(
-𝑠
-)
-
-
-
-
-𝑑
-𝐵
-𝑑
-𝑠
-	
-=
-−
-𝜏
-(
-𝑠
-)
- 
-𝑁
-(
-𝑠
-)
-ds
-dT
-	​
-
-ds
-dN
-	​
-
-ds
-dB
-	​
-
-	​
-
-=κ(s)N(s)
-=−κ(s)T(s)+τ(s)B(s)
-=−τ(s)N(s)
-	​
-
-
-where:
-
-𝑇
-(
-𝑠
-)
-T(s) = unit tangent
-
-𝑁
-(
-𝑠
-)
-N(s) = unit normal
-
-𝐵
-(
-𝑠
-)
-=
-𝑇
-(
-𝑠
-)
-×
-𝑁
-(
-𝑠
-)
-B(s)=T(s)×N(s) = unit binormal
-
-Thus the CMA-3D representation of a curve is the tuple:
-
-𝑀
-=
-(
-𝐿
-,
-  
-𝑢
-,
-  
-𝜅
-(
-𝑢
-)
-,
-  
-𝜏
-(
-𝑢
-)
-)
-M=(L,u,κ(u),τ(u))
-
-where:
-
-𝐿
-L = total curve length
-
-𝑢
-=
-𝑠
-/
-𝐿
-∈
-[
-0
-,
-1
-]
-u=s/L∈[0,1] = normalized arclength
-
-𝜅
-(
-𝑢
-)
-κ(u) = curvature function over normalized arclength
-
-𝜏
-(
-𝑢
-)
-τ(u) = torsion function over normalized arclength
-
-This representation is:
-
-Rigid-motion invariant (independent of translation/rotation)
-
-Scale aware (through 
-𝐿
-L)
-
-Lossless in principle (the curve can be reconstructed from it)
-
-Discrete Formulation
-
-For a discrete polyline 
-{
-𝑝
-𝑖
-}
-𝑖
-=
-0
-𝑁
-{p
-i
-	​
-
-}
-i=0
-N
-	​
-
-:
-
-Segment lengths and arclengths
-
-ℓ
-𝑖
-=
-∥
-𝑝
-𝑖
-+
-1
-−
-𝑝
-𝑖
-∥
-,
-𝑠
-𝑗
-=
-∑
-𝑖
-=
-0
-𝑗
-−
-1
-ℓ
-𝑖
-,
-𝐿
-=
-𝑠
-𝑁
-ℓ
-i
-	​
-
-=∥p
-i+1
-	​
-
-−p
-i
-	​
-
-∥,s
-j
-	​
-
-=
-i=0
-∑
-j−1
-	​
-
-ℓ
-i
-	​
-
-,L=s
-N
-	​
-
-
-Tangents
-
-𝑡
-𝑖
-=
-𝑝
-𝑖
-+
-1
-−
-𝑝
-𝑖
-ℓ
-𝑖
-t
-i
-	​
-
-=
-ℓ
-i
-	​
-
-p
-i+1
-	​
-
-−p
-i
-	​
-
-	​
-
-
-Discrete curvature at vertex 
-𝑖
-i:
-
-𝜅
-𝑖
-≈
-∥
-𝑡
-𝑖
-−
-𝑡
-𝑖
-−
-1
-∥
-1
-2
-(
-ℓ
-𝑖
-−
-1
-+
-ℓ
-𝑖
-)
-κ
-i
-	​
-
-≈
-2
-1
-	​
-
-(ℓ
-i−1
-	​
-
-+ℓ
-i
-	​
-
-)
-∥t
-i
-	​
-
-−t
-i−1
-	​
-
-∥
-	​
-
-
-Discrete torsion at vertex 
-𝑖
-i:
-Define binormals:
-
-𝑏
-𝑖
-=
-𝑡
-𝑖
-×
-𝑡
-𝑖
-−
-1
-∥
-𝑡
-𝑖
-×
-𝑡
-𝑖
-−
-1
-∥
-b
-i
-	​
-
-=
-∥t
-i
-	​
-
-×t
-i−1
-	​
-
-∥
-t
-i
-	​
-
-×t
-i−1
-	​
-
-	​
-
-
-Then torsion is the signed angle change of binormals per arclength:
-
-𝜏
-𝑖
-≈
-sign
-⁡
-(
-(
-𝑏
-𝑖
-−
-1
-×
-𝑏
-𝑖
-)
-⋅
-𝑡
-𝑖
-)
-  
-∠
-(
-𝑏
-𝑖
-−
-1
-,
-𝑏
-𝑖
-)
-1
-2
-(
-ℓ
-𝑖
-−
-1
-+
-ℓ
-𝑖
-)
-τ
-i
-	​
-
-≈
-2
-1
-	​
-
-(ℓ
-i−1
-	​
-
-+ℓ
-i
-	​
-
-)
-sign((b
-i−1
-	​
-
-×b
-i
-	​
-
-)⋅t
-i
-	​
-
-)∠(b
-i−1
-	​
-
-,b
-i
-	​
-
-)
-	​
-
-Reconstruction from Memory
-
-Given 
-(
-𝜅
-(
-𝑠
-)
-,
-𝜏
-(
-𝑠
-)
-)
-(κ(s),τ(s)), one can reconstruct the curve up to a rigid motion by integrating Frenet–Serret:
-
-Initialize point 
-𝑟
-(
-0
-)
-r(0) and frame 
-(
-𝑇
-,
-𝑁
-,
-𝐵
-)
-(T,N,B).
-
-March forward with step size 
-Δ
-𝑠
-Δs:
-
-Rotate 
-𝑇
-,
-𝑁
-T,N in the 
-𝑇
-T–
-𝑁
-N plane by angle 
-𝜅
-Δ
-𝑠
-κΔs.
-
-Twist 
-𝑁
-,
-𝐵
-N,B around 
-𝑇
-T by angle 
-𝜏
-Δ
-𝑠
-τΔs.
-
-Advance:
-
-𝑟
-(
-𝑠
-+
-Δ
-𝑠
-)
-=
-𝑟
-(
-𝑠
-)
-+
-𝑇
-(
-𝑠
-)
- 
-Δ
-𝑠
-r(s+Δs)=r(s)+T(s)Δs
-
-Repeat until 
-𝑠
-=
-𝐿
-s=L.
-
-This reconstructs a canonical representative of the curve defined by the memory.
-
-Global Quantities
-
-From the stored memory we can compute invariants:
-
-Total curvature:
-
-∫
-0
-𝐿
-𝜅
-(
-𝑠
-)
- 
-𝑑
-𝑠
-∫
-0
-L
-	​
-
-κ(s)ds
-
-Total torsion:
-
-∫
-0
-𝐿
-∣
-𝜏
-(
-𝑠
-)
-∣
- 
-𝑑
-𝑠
-∫
-0
-L
-	​
-
-∣τ(s)∣ds
-
-Writhe/Twist approximations for closed curves.
-
-Multi-Scale Curve Memory
-
-Instead of storing full 
-𝜅
-(
-𝑢
-)
-,
-𝜏
-(
-𝑢
-)
-κ(u),τ(u), CMA-3D supports multi-scale downsampling:
-
-Build pyramids of 
-𝜅
-,
-𝜏
-κ,τ at reduced resolution.
-
-Store statistics (mean, std, min, max).
-
-Allows variable level of detail (LOD):
-
-Low resolution for search/indexing.
-
-High resolution for reconstruction.
-
-Benefits
-
-Compression: reduce curve data size by 10–60× with <0.5% RMS error on smooth curves.
-
-Comparison: invariant signatures make it easy to compare curves regardless of pose.
-
-Reconstruction: regenerate curves at arbitrary sampling density.
-
-Integration: directly usable in CAD pipelines (tube sweeps, ribbons, lofts).
-
-Learning: curvature/torsion sequences can be fed into ML models.
-
-Example (Helix)
-
-For a helix:
-
-𝑟
-(
-𝑡
-)
-=
-(
-cos
-⁡
-𝑡
-,
-  
-sin
-⁡
-𝑡
-,
-  
-𝑐
-𝑡
-)
-r(t)=(cost,sint,ct)
-
-The invariants are constant:
-
-𝜅
-=
-1
-1
-+
-𝑐
-2
-,
-𝜏
-=
-𝑐
-1
-+
-𝑐
-2
-κ=
-1+c
-2
-1
-	​
-
-,τ=
-1+c
-2
-c
-	​
-
-
-So the CMA-3D memory of a helix is simply the pair of constants 
-(
-𝜅
-,
-𝜏
-)
-(κ,τ) repeated along arclength.
-
-Summary
-
-CMA-3D = Curve Memory in 3D is the representation:
-
-𝑀
-=
-(
-𝐿
-,
-  
-𝑢
-,
-  
-𝜅
-(
-𝑢
-)
-,
-  
-𝜏
-(
-𝑢
-)
-)
-M=(L,u,κ(u),τ(u))
-
-It is:
-
-Compact
-
-Rigid-motion invariant
-
-Reconstructable
-
-Extendable to multi-scale analysis
-
-This forms the basis for efficient curve storage, comparison, and regeneration in AdaptiveCAD and related frameworks.
+Forms a solid base for efficient curve storage, retrieval, and CAD integration.
