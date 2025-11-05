@@ -1,3 +1,22 @@
+
+The core conductance‐adaptation law expressed in this codebase (i.e., ) is related to well‐established work in adaptive flow or network morphogenesis (e.g., adaptive conductivities in fluid/flow networks, biological transport networks). While our implementation, framework and cross‐domain extensions are novel, readers should be aware that the adaptation rule form has been explored in the scientific literature. The purpose of this repository is to unify, extend and apply that rule in new ways (e.g., ML optimization, analog/ER‐fluid computing, geometric field networks), rather than to claim that the differential equation form is entirely new.
+
+We thus view our contributions as:
+
+1. A generalized, modular software/hardware platform for that adaptation law;
+
+
+2. New closed‐form invariants, scaling constants and empirical benchmarks extending the rule;
+
+
+3. Novel applications in machine learning, physics simulation, and embedded analog compute.
+
+
+
+We welcome references to prior works and encourage users to cite both the original literature and this repository when building on it.
+
+
+
 # Adaptive Resistance Principle (ARP)
 
 [![Sponsor RDM3DC](https://img.shields.io/badge/Sponsor-RDM3DC-ff69b4?logo=github-sponsors)](https://github.com/sponsors/RDM3DC)
