@@ -40,6 +40,42 @@ Most scripts depend on `numpy` and `matplotlib`.
 ## ARP Reference
 For a standalone copy, see [ARP_reference.md](ARP_reference.md).
 
+## 2025 Highlights: Fixed Points, Scaling Laws, and Geometry
+
+Since early 2025 this repo has grown beyond "just" an adaptive conductance rule:
+
+- **Universal ARP Fixed Point (G\*)**  
+  In ARP-controlled Grover search we find a **dimensionless fixed point**
+  \[
+  \hat G^* \approx 1.9184
+  \]
+  after factoring out the 1/\sqrt{N} geometry of the search space. This G\* acts
+  as a design constant for stabilizing quantum gain under decoherence.
+
+- **1/√N Scaling + N-independent Noise Budget**  
+  When we scale \(\gamma_G,\mu_G \propto 1/\sqrt{N}\), the steady-state gain
+  satisfies \(G_{\text{angle}}^{\text{steady}} \propto 1/\sqrt{N}\).  
+  Combined with Grover's \(K(N)\propto \sqrt{N}\) iterations, this cancels the
+  N-dependence in the total cancelable noise: the **AIN correction factor
+  \(k_{\text{AIN}}\) can stay O(1)** even as Hilbert space size explodes.
+
+- **Law of Dynamic Resistance (LDR) in Field Theory**  
+  In the companion AQG+M simulations, a geometry field \(\pi_a(x,t)\) obeys a
+  continuum ARP-like law
+  \[
+  \dot G_{\text{eff}} \approx \gamma_{\text{eff}} P_{\text{lump}}
+  - \mu_{\text{eff}} G_{\text{eff}}
+  \]
+  where \(P_{\text{lump}}\) is local matter power and \(G_{\text{eff}}\) is the
+  induced curvature depth. After non-dimensionalizing, we find a **universal
+  ratio** \(\tilde G/\tilde P \approx 1.55\), close to the discrete Grover value
+  1.9184. This is our current best bridge between ARP on graphs and ARP as
+  adaptive geometry.
+
+These results are **work-in-progress**: they're numerically and analytically
+supported in toy models, but not yet peer-reviewed. PRs, criticism, and
+independent checks are very welcome.
+
 $$
 \textbf{Adaptive Resistance Principle (ARP):}\qquad 
 \frac{dG(t)}{dt} = \alpha\,|I(t)| - \mu\,G(t),
@@ -216,6 +252,10 @@ An **OpenAI account** is required to access them.
 </p>
 
 ## Related: Quantum Extensions (graviton-PI_a)
+
+> **Note (2025):** The graviton-PIₐ repo contains the ARP-controlled Grover
+> experiments used to extract the G\* ≈ 1.9184 fixed point and the 1/√N
+> scaling/ain-decoupling results summarized above.
 
 For extensions of ARP into quantum computing and emergent geometry, see the companion repository:
 
