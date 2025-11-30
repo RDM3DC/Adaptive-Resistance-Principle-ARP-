@@ -215,6 +215,44 @@ An **OpenAI account** is required to access them.
   </a> – Interactive walkthrough of the curve-based alphabet.
 </p>
 
+## Related: Quantum Extensions (graviton-PI_a)
+
+For extensions of ARP into quantum computing and emergent geometry, see the companion repository:
+
+**[graviton-PI_a](https://github.com/RDM3DC/graviton-PI_a)** – ARP-controlled quantum search experiments and Adaptive Impedance Network (AIN) hardware interface.
+
+### Key Concepts
+
+- **ARP-Controlled Quantum Search**: Apply the ARP controller to Grover-like quantum search experiments, where ARP tunes an effective rotation gain \( G_{\text{angle}} \) to stabilize quantum interference patterns under decoherence.
+
+- **Adaptive Impedance Network (AIN)**: A classical hardware layer providing active decoherence suppression. The AIN receives \( G_{\text{angle}}^{\text{steady}} \approx C/N \) from the ARP controller and modulates conductance to cancel environmental noise. The key scaling: \( \Gamma_{\text{noise}}^{\text{cancel}} \propto 1/N \).
+
+- **Three-Layer Program**:
+  1. **Layer 1 – Classical Stochastic Emergence**: Demonstrates that deterministic macro-behavior emerges from noisy microscopic dynamics regulated by adaptive geometry (πₐ and ARP).
+  2. **Layer 2 – Quantum Embedding**: Promotes classical variables to operator expectation values, with noise reinterpreted as decoherence in open quantum systems.
+  3. **Layer 3 – Geometry/Gravity Connection**: Interprets πₐ and ARP as geometric degrees of freedom shaping an emergent metric, approaching GR-like equations.
+
+- **Graviton-Gates (Adaptive Quantum Logic)**: Instead of treating gravitons as particles, treat them as entangling operations whose strength is set by geometry:
+  \[
+  H(t) = \sum_{(u,v) \in E} J(\pi_{uv}(t)) \cdot \hat{O}_{uv}
+  \]
+  where \( J(\pi) \propto \pi \), so curvature directly controls interaction strength.
+
+- **Entanglement Backreaction (ARP-Einstein Rule)**:
+  \[
+  \dot{\pi}_{uv} = -\eta (S_{uv} - S_{\text{target}}) - \mu (\pi_{uv} - \pi_0)
+  \]
+  Geometry adapts to entanglement load: high entanglement → spacetime dilates; low entanglement → spacetime contracts.
+
+### Emergent Distance (ER = EPR Interpretation)
+
+From the matter state, compute mutual information \( I(i:j) \) and define emergent distance:
+\[
+d(i,j) \propto -\log(I(i:j) + \varepsilon)
+\]
+
+So geometry is not assumed—it's read out from entanglement structure.
+
 ## License
 
 This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
