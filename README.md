@@ -228,9 +228,9 @@ For extensions of ARP into quantum computing and emergent geometry, see the comp
 - **Adaptive Impedance Network (AIN)**: A classical hardware layer providing active decoherence suppression. The AIN receives \( G_{\text{angle}}^{\text{steady}} \approx C/N \) from the ARP controller and modulates conductance to cancel environmental noise. The key scaling: \( \Gamma_{\text{noise}}^{\text{cancel}} \propto 1/N \).
 
 - **Three-Layer Program**:
-  1. **Layer 1 – Classical Stochastic Emergence**: Demonstrates that deterministic macro-behavior emerges from noisy microscopic dynamics regulated by adaptive geometry (πₐ and ARP).
+  1. **Layer 1 – Classical Stochastic Emergence**: Demonstrates that deterministic macro-behavior emerges from noisy microscopic dynamics regulated by adaptive geometry (\( \pi_a \) and ARP).
   2. **Layer 2 – Quantum Embedding**: Promotes classical variables to operator expectation values, with noise reinterpreted as decoherence in open quantum systems.
-  3. **Layer 3 – Geometry/Gravity Connection**: Interprets πₐ and ARP as geometric degrees of freedom shaping an emergent metric, approaching GR-like equations.
+  3. **Layer 3 – Geometry/Gravity Connection**: Interprets \( \pi_a \) and ARP as geometric degrees of freedom shaping an emergent metric, approaching GR-like equations.
 
 - **Graviton-Gates (Adaptive Quantum Logic)**: Instead of treating gravitons as particles, treat them as entangling operations whose strength is set by geometry:
   \[
