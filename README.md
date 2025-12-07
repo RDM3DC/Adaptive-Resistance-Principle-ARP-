@@ -1,301 +1,269 @@
-
-The core conductance‐adaptation law expressed in this codebase (i.e., ) is related to well‐established work in adaptive flow or network morphogenesis (e.g., adaptive conductivities in fluid/flow networks, biological transport networks). While our implementation, framework and cross‐domain extensions are novel, readers should be aware that the adaptation rule form has been explored in the scientific literature. The purpose of this repository is to unify, extend and apply that rule in new ways (e.g., ML optimization, analog/ER‐fluid computing, geometric field networks), rather than to claim that the differential equation form is entirely new.
-
-We thus view our contributions as:
-
-1. A generalized, modular software/hardware platform for that adaptation law;
-
-
-2. New closed‐form invariants, scaling constants and empirical benchmarks extending the rule;
-
-
-3. Novel applications in machine learning, physics simulation, and embedded analog compute.
-
-
-
-We welcome references to prior works and encourage users to cite both the original literature and this repository when building on it.
-
-
-
 # Adaptive Resistance Principle (ARP)
 
 [![Sponsor RDM3DC](https://img.shields.io/badge/Sponsor-RDM3DC-ff69b4?logo=github-sponsors)](https://github.com/sponsors/RDM3DC)
 
-This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**. ARP describes networks of resistive elements that update their conductance in response to electrical stimuli, inspired by electrorheological fluids and self‑organising systems found in nature.
-[Project website](https://rdm3dc.github.io/ARP-RDM3DC/)
+This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**—a family of adaptive-conductance laws inspired by electrorheological fluids, biological transport networks, and self-organizing field systems.
 
-https://x.com/RDM3DC
+ARP is expressed here in **two complementary modes**:
 
-## Repository overview
-
-The project includes a variety of Python scripts and markdown documents:
-
-- **double_slit.py** – Simulate a double‑slit experiment with an optional ARP "live aperture" mode.
-- **dynamic-resistance-simulation.py** – Demonstrates conductance evolution according to a simple ARP update rule.
-- **tsp*.py** – Prototype solvers that apply ARP ideas to travelling‑salesperson problems.
-- Various `.md` files with derivations, conceptual sketches, and notes about potential applications.
-
-Most scripts depend on `numpy` and `matplotlib`.
-
-## ARP Reference
-For a standalone copy, see [ARP_reference.md](ARP_reference.md).
-
-## 2025 Highlights: Fixed Points, Scaling Laws, and Geometry
-
-Since early 2025 this repo has grown beyond "just" an adaptive conductance rule:
-
-- **Universal ARP Fixed Point (G\*)**  
-  In ARP-controlled Grover search we find a **dimensionless fixed point**
+* **ARP-I (Intensity-Driven, classical)**
   \[
-  \hat G^* \approx 1.9184
+  \dot G = \alpha\,|I| - \mu\,G
   \]
-  after factoring out the 1/\sqrt{N} geometry of the search space. This G\* acts
-  as a design constant for stabilizing quantum gain under decoherence.
 
-- **1/√N Scaling + N-independent Noise Budget**  
-  When we scale \(\gamma_G,\mu_G \propto 1/\sqrt{N}\), the steady-state gain
-  satisfies \(G_{\text{angle}}^{\text{steady}} \propto 1/\sqrt{N}\).  
-  Combined with Grover's \(K(N)\propto \sqrt{N}\) iterations, this cancels the
-  N-dependence in the total cancelable noise: the **AIN correction factor
-  \(k_{\text{AIN}}\) can stay O(1)** even as Hilbert space size explodes.
-
-- **Law of Dynamic Resistance (LDR) in Field Theory**  
-  In the companion AQG+M simulations, a geometry field \(\pi_a(x,t)\) obeys a
-  continuum ARP-like law
+* **ARP-Φ (Flux-Driven, 2025 extension)**
   \[
-  \dot G_{\text{eff}} \approx \gamma_{\text{eff}} P_{\text{lump}}
-  - \mu_{\text{eff}} G_{\text{eff}}
+  \dot G = \alpha\,\big|\dot\Phi\big| - \mu\,G
   \]
-  where \(P_{\text{lump}}\) is local matter power and \(G_{\text{eff}}\) is the
-  induced curvature depth. After non-dimensionalizing, we find a **universal
-  ratio** \(\tilde G/\tilde P \approx 1.55\), close to the discrete Grover value
-  1.9184. This is our current best bridge between ARP on graphs and ARP as
-  adaptive geometry.
 
-These results are **work-in-progress**: they're numerically and analytically
-supported in toy models, but not yet peer-reviewed. PRs, criticism, and
-independent checks are very welcome.
+Both describe how conductances, geometric weights, or interaction strengths adapt in response to a driving signal. ARP-Φ generalizes ARP-I by replacing instantaneous intensity with the *rate of change* of an underlying potential/field.
 
-$$
-\textbf{Adaptive Resistance Principle (ARP):}\qquad 
-\frac{dG(t)}{dt} = \alpha\,|I(t)| - \mu\,G(t),
-\quad \alpha>0,\;\mu>0,\; G(t)\ge 0.
-$$
-
-- \( G(t) \): adaptive conductance (memory state)
-- \( I(t) \): driving signal (typically current magnitude, non-negative)
-- \( \alpha \): reinforcement rate
-- \( \mu \): decay (forgetting) rate
-
-### Closed-form solution (general \(I(t)\))
-
-$$
-\textbf{Closed-form:}\qquad 
-G(t) = e^{-\mu t}\Big[\,G(0) + \alpha\!\int_{0}^{t} e^{\mu s}\,|I(s)|\,ds\Big].
-$$
-
-Equivalently, as a causal exponential smoothing (no checkpoints needed—just timestamps/history):
-
-$$
-G(t) = \big(e^{-\mu t} * \alpha\,|I(t)|\big) + G(0)e^{-\mu t},
-\quad \text{with kernel } k(t)=e^{-\mu t}\mathbf{1}_{t\ge 0}.
-$$
-
-### Special cases you’ll actually use
-
-**Constant input \(|I(t)| = I_0\)**
-
-$$
-G(t) = G_\infty + \big(G(0)-G_\infty\big)e^{-\mu t},
-\qquad G_\infty = \frac{\alpha I_0}{\mu},\quad \tau=\mu^{-1}.
-$$
-
-**Piecewise-constant input (step changes)** over intervals \([t_k,t_{k+1})\) with level \(I_k\):
-
-$$
-G(t) = G_\infty^{(k)} + \big(G(t_k^+) - G_\infty^{(k)}\big)e^{-\mu (t-t_k)},
-\qquad G_\infty^{(k)}=\frac{\alpha I_k}{\mu}.
-$$
-
-**Stationary ergodic input with mean \(\mathbb{E}[|I|]\)**
-
-$$
-\lim_{t\to\infty} G(t) = \frac{\alpha}{\mu}\,\mathbb{E}[|I|].
-$$
-
-### Transfer function view (LTI w.r.t. \(|I|\))
-
-Treat \(u(t)=|I(t)|\) as input:
-
-$$
-\mathcal{L}\{G\}(s) = \frac{\alpha}{s+\mu}\,\mathcal{L}\{u\}(s) + \frac{G(0)}{s+\mu}.
-\quad\Rightarrow\quad H(s)=\frac{\alpha}{s+\mu}.
-$$
-
-So ARP is an exponential low-pass tracker of \(|I|\) with cutoff \(\mu\).
-
-### Discrete-time (forward Euler, step \(\Delta t\))
-
-$$
-G_{k+1} = (1-\mu\Delta t)G_k + \alpha\Delta t\,|I_k|.
-$$
-
-- Stability: \(0<\mu\Delta t<2\) (practically, \(\mu\Delta t\ll 1\)).
-- Z-domain (with one-step input delay from Euler):
-
-$$
-\frac{G(z)}{U(z)} = \frac{\alpha\Delta t\,z^{-1}}{1-(1-\mu\Delta t)\,z^{-1}}.
-$$
-
-### Positivity, bounds, and monotonicity
-
-If \(G(0)\ge 0\) and \(|I(t)|\ge 0\) then \(G(t)\ge 0\) for all \(t\).
-If \(|I(t)|\le I_{\max}\):
-
-$$
-0 \le G(t) \le \frac{\alpha I_{\max}}{\mu}
-\quad\text{and}\quad
-G(t)\text{ moves monotonically toward the current piecewise }G_\infty.
-$$
-
-### Global exponential stability (constant input)
-
-Let \(e(t)=G(t)-G_\infty\). Then
-
-$$
-\dot e(t) = -\mu e(t),\qquad V=e^2 \Rightarrow \dot V = -2\mu V \le 0,
-$$
-
-so \(G \to G_\infty\) globally and exponentially.
-
-### Simple closed-loop example (Ohmic coupling)
-
-If the environment is approximately Ohmic with voltage \(V(t)\) so that \(|I(t)|\approx |V(t)|\,G(t)\), then:
-
-$$
-\dot G = (\alpha|V(t)|-\mu)G.
-$$
-
-- For constant \(|V|\): \(G(t)=G(0)e^{(\alpha|V|-\mu)t}\).
-- Threshold behavior: decay if \(|V|<\mu/\alpha\), growth if \(|V|>\mu/\alpha\).
-  (In practice you add saturation/normalization to cap \(G\).)
-
-### Multi-edge/network form
-
-For edges \((i,j)\) with currents \(I_{ij}(t)\):
-
-$$
-\dot G_{ij}(t) = \alpha\,|I_{ij}(t)| - \mu\,G_{ij}(t).
-$$
-
-Vectorized with \(G\in\mathbb{R}^m_{\ge 0}\):
-
-$$
-\dot G = \alpha\,|I(x,G,t)| - \mu\,G,
-$$
-
-where \(I\) can depend on states \(x\) and the network physics. Fixed points satisfy
-\(\mu G^\star = \alpha |I(x,G^\star)|\). Contraction holds if the sensitivity of \(I\) to \(G\) is small enough relative to \(\mu/\alpha\).
-
-### MD-ARP (optional extension with C,L)
-
-When you want adaptive impedance, let conductance \(G\), capacitance \(C\), inductance \(L\) adapt to their “driving magnitudes”:
-
-$$
-\dot G = \alpha_G\,|I| - \mu_G\,G,\qquad 
-\dot C = \alpha_C\,|V| - \mu_C\,C,\qquad 
-\dot L = \alpha_L\,|\dot I| - \mu_L\,L.
-$$
-
-Same closed-form per coordinate; all inherit the low-pass tracking and stability properties.
+**Project website:** [https://rdm3dc.github.io/ARP-RDM3DC/](https://rdm3dc.github.io/ARP-RDM3DC/)  
+**X/Twitter:** [https://x.com/RDM3DC](https://x.com/RDM3DC)
 
 ---
 
-### TL;DR (what to remember)
+# ⭐ Novelty & Scientific Positioning
 
-- Law: \(\dot G=\alpha|I|-\mu G\).
-- Solution: \(G(t)=e^{-\mu t}\big[G(0)+\alpha\!\int_0^t e^{\mu s}|I(s)|ds\big]\).
-- Constant input: \(G_\infty=\alpha I_0/\mu\), time constant \(1/\mu\).
-- Discrete: \(G_{k+1}=(1-\mu\Delta t)G_k+\alpha\Delta t|I_k|\).
-- Stability: global, exponential to the instantaneous \(G_\infty\); positive and bounded.
+The core adaptive law explored in this repository—whether intensity-driven (ARP-I) or flux-driven (ARP-Φ)—is related to established work in adaptive flow networks, Physarum-type conductance updates, and biological morphogenesis.
 
+This repository does **not** claim exclusive discovery of the differential equation form itself.
 
-## Interactive GPT guides
+Instead, the novel contributions are:
 
-The links below open custom GPT assistants that explain different aspects of this project.
-An **OpenAI account** is required to access them.
+### **1. A unified, generalized software + hardware platform**
 
-<p>
-  <a href="https://chatgpt.com/g/g-682becde1e84819182698ed3c160a900-adaptive-resistance-guide">
-    <button>Adaptive Resistance Guide</button>
-  </a> – Overview of ARP fundamentals and core concepts.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c76f252c081919e8bf592dda2bf96-adaptive-pi-geometry">
-    <button>Adaptive Pi Geometry</button>
-  </a> – Learn how the πₐ constant adapts under different constraints.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c731b2dac8191b13cd66f6ff77b09-curve-memory-assistant">
-    <button>Curve Memory Assistant</button>
-  </a> – Explores encoding information in curves and shape memory.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682c792d285481919ec4b2d414c872f0-realignr-optimizer">
-    <button>RealignR Optimizer</button>
-  </a> – Step-by-step guide to using the RealignR optimization routines.
-  <br/>
-  <a href="https://chatgpt.com/g/g-6832c619cef48191be08ebcfc90499c4-geometric-neural-computation">
-    <button>Geometric Neural Computation</button>
-  </a> – Discusses geometric approaches to neural computation.
-  <br/>
-  <a href="https://chatgpt.com/g/g-682e4bf216408191bcc7af378a49ba26-curve-alphabet-assistant">
-    <button>Curve Alphabet Assistant</button>
-  </a> – Interactive walkthrough of the curve-based alphabet.
-</p>
+for experimenting with adaptive-conductance laws across **circuits**, **geometry**, **quantum control**, and **analog computing**.
 
-## Related: Quantum Extensions (graviton-PI_a)
+### **2. New invariants, constants, and scaling relations**
 
-> **Note (2025):** The graviton-PIₐ repo contains the ARP-controlled Grover
-> experiments used to extract the G\* ≈ 1.9184 fixed point and the 1/√N
-> scaling/ain-decoupling results summarized above.
+such as the **G*** fixed point (≈1.9184), cross-domain **1/√N** cancellation laws, and stability mappings linking discrete networks to field-theoretic geometry.
 
-For extensions of ARP into quantum computing and emergent geometry, see the companion repository:
+### **3. New applications and cross-domain bridges**
 
-**[graviton-PI_a](https://github.com/RDM3DC/graviton-PI_a)** – ARP-controlled quantum search experiments and Adaptive Impedance Network (AIN) hardware interface.
+including:
 
-### Key Concepts
+* ML optimization (RealignR)
+* analog/ER-fluid TSP solvers
+* adaptive curvature networks (πₐ geometry)
+* classical–quantum hybrids (AIN + Grover gain control)
+* emergent geometry simulations
 
-- **ARP-Controlled Quantum Search**: Apply the ARP controller to Grover-like quantum search experiments, where ARP tunes an effective rotation gain \( G_{\text{angle}} \) to stabilize quantum interference patterns under decoherence.
+Users are encouraged to cite both foundations in the literature and the extensions introduced in this repo.
 
-- **Adaptive Impedance Network (AIN)**: A classical hardware layer providing active decoherence suppression. The AIN receives \( G_{\text{angle}}^{\text{steady}} \approx C/N \) from the ARP controller and modulates conductance to cancel environmental noise. The key scaling: \( \Gamma_{\text{noise}}^{\text{cancel}} \propto 1/N \).
+---
 
-- **Three-Layer Program**:
-  1. **Layer 1 – Classical Stochastic Emergence**: Demonstrates that deterministic macro-behavior emerges from noisy microscopic dynamics regulated by adaptive geometry (\( \pi_a \) and ARP).
-  2. **Layer 2 – Quantum Embedding**: Promotes classical variables to operator expectation values, with noise reinterpreted as decoherence in open quantum systems.
-  3. **Layer 3 – Geometry/Gravity Connection**: Interprets \( \pi_a \) and ARP as geometric degrees of freedom shaping an emergent metric, approaching GR-like equations.
+# Repository Overview
 
-- **Graviton-Gates (Adaptive Quantum Logic)**: Instead of treating gravitons as particles, treat them as entangling operations whose strength is set by geometry:
-  \[
-  H(t) = \sum_{(u,v) \in E} J(\pi_{uv}(t)) \cdot \hat{O}_{uv}
-  \]
-  where \( J(\pi) \propto \pi \), so curvature directly controls interaction strength.
+This project includes a variety of Python scripts and research notes:
 
-- **Entanglement Backreaction (ARP-Einstein Rule)**:
-  \[
-  \dot{\pi}_{uv} = -\eta (S_{uv} - S_{\text{target}}) - \mu (\pi_{uv} - \pi_0)
-  \]
-  Geometry adapts to entanglement load: high entanglement → spacetime dilates; low entanglement → spacetime contracts.
+* **double_slit.py** – Double-slit simulation with optional ARP “live aperture.”
+* **dynamic-resistance-simulation.py** – Demonstrates conductance evolution under ARP-I or ARP-Φ.
+* **tsp*.py** – TSP solvers exploring ARP dynamics in path reinforcement.
+* Multiple `.md` files with derivations, sketches, and conceptual extensions.
 
-### Emergent Distance (ER = EPR Interpretation)
+Most scripts depend on `numpy` and `matplotlib`.
 
-From the matter state, compute mutual information \( I(i:j) \) and define emergent distance:
+Standalone reference: **[ARP_reference.md](ARP_reference.md)**
+
+---
+
+# 🔧 ARP Modes: ARP-I and ARP-Φ
+
+ARP is presented in two parallel forms. Both share the same stability structure but respond to different physical cues.
+
+---
+
+# **ARP-I (Intensity-Driven)**
+
+### *Classical adaptive conductance law*
+
 \[
-d(i,j) \propto -\log(I(i:j) + \varepsilon)
+\dot G(t) = \alpha\,|I(t)| - \mu\,G(t)
 \]
 
-So geometry is not assumed—it's read out from entanglement structure.
+* Used for circuits, TSP, ER-fluid analog computing
+* Responds to “how much signal is flowing”
+* Memory increases with sustained current
+* Conductance decays exponentially without stimulus
 
-## License
+This is the formulation historically used throughout the repository.
 
-This project is licensed under the terms of the MIT License. See [LICENSE](LICENSE) for details.
+---
 
+# **ARP-Φ (Flux-Driven, 2025 Extension)**
 
-https://cash.app/$rdm3d
+### *Geometry-sensitive, derivative-based adaptation*
+
+\[
+\dot G(t) = \alpha\,\big|\dot\Phi(t)\big| - \mu\,G(t)
+\]
+
+* Used for adaptive geometry (πₐ), AQG+M, and field simulations
+* Responds to *change*, not magnitude
+* Curvature/gradient changes increase conductance
+* Static regions decay (straight lines collapse, curves stabilize)
+
+This generalizes ARP into geometric, field-based, and spacetime-like systems.
+
+---
+
+# 📌 Shared Properties of ARP-I and ARP-Φ
+
+Both modes have identical mathematical structure. Let \(u(t) = |I(t)|\) or \(u(t) = |\dot\Phi(t)|\).
+
+Then in general:
+
+\[
+\dot G = \alpha\,u(t) - \mu\,G
+\]
+
+---
+
+## **Closed-form solution**
+
+\[
+G(t) = e^{-\mu t}\!\left[G(0) + \alpha\!\int_0^t e^{\mu s}\,u(s)\,ds\right]
+\]
+
+A simple exponentially weighted causal filter with time-constant \(1/\mu\).
+
+---
+
+## **Constant stimulus**
+
+If \(u(t)=u_0\):
+
+\[
+G(t) = G_\infty + \big(G(0)-G_\infty\big)e^{-\mu t},
+\qquad
+G_\infty = \frac{\alpha u_0}{\mu}
+\]
+
+---
+
+## **Discrete-time form**
+
+\[
+G_{k+1} = (1-\mu\Delta t)G_k + \alpha\Delta t\,u_k
+\]
+
+Stable for \(0 < \mu\Delta t < 2\).
+
+---
+
+## **Positivity & bounds**
+
+If \(u(t)\le u_{\max}\):
+
+\[
+0 \le G(t) \le \frac{\alpha u_{\max}}{\mu}
+\]
+
+---
+
+## **Global exponential stability**
+
+Let \(e(t)=G(t)-G_\infty\):
+
+\[
+\dot e = -\mu e
+\quad\Rightarrow\quad
+e(t)=e(0)e^{-\mu t}
+\]
+
+---
+
+# 🌀 Multi-Edge / Network Form
+
+For edges \((i,j)\):
+
+\[
+\dot G_{ij} = \alpha\,u_{ij} - \mu\,G_{ij}
+\]
+
+with \(u_{ij} = |I_{ij}|\) (ARP-I) or \(u_{ij}=|\dot\Phi_{ij}|\) (ARP-Φ).
+
+---
+
+# 🔬 2025 Highlights: Fixed Points, Scaling Laws, Geometry
+
+These results emerged from experiments in this repo and the companion **graviton-PIₐ** repo.
+
+### **1. Universal ARP Fixed Point (G*)**
+
+In ARP-controlled Grover search:
+
+\[
+\hat G^* \approx 1.9184
+\]
+
+after factoring \(1/\sqrt{N}\) geometry. This constant stabilizes quantum gain against decoherence.
+
+---
+
+### **2. 1/√N Scaling + N-Independent Noise Budget**
+
+With \(\gamma_G,\mu_G\propto 1/\sqrt{N}\):
+
+\[
+G_{\text{angle}}^{\text{steady}} \propto \frac{1}{\sqrt{N}}
+\]
+
+Combined with Grover’s \(K(N)\propto\sqrt N\), the cancelable noise term becomes **O(1)**.
+
+---
+
+### **3. LDR (Law of Dynamic Resistance) in Field Theory**
+
+In AQG+M simulations:
+
+\[
+\dot G_{\rm eff}
+\approx \gamma_{\rm eff} P_{\rm lump}
+- \mu_{\rm eff}G_{\rm eff}
+\]
+
+leading to universal geometry/matter ratios (e.g., \(\tilde G/\tilde P\approx 1.55\)), linking discrete ARP networks to adaptive curvature.
+
+---
+
+# 🧠 Interactive GPT Guides
+
+These links open custom GPT assistants for deeper exploration (requires an OpenAI account):
+
+* **Adaptive Resistance Guide**
+* **Adaptive Pi Geometry**
+* **Curve Memory Assistant**
+* **RealignR Optimizer**
+* **Geometric Neural Computation**
+* **Curve Alphabet Assistant**
+
+(Links preserved from previous README.)
+
+---
+
+# 🔗 Quantum Extensions (graviton-PIₐ)
+
+See companion repo:
+
+**[https://github.com/RDM3DC/graviton-PI_a](https://github.com/RDM3DC/graviton-PI_a)**
+
+for:
+
+* ARP-controlled Grover experiments
+* Adaptive Impedance Network (AIN)
+* quantum-classical stabilization
+* emergent geometry mapping
+
+---
+
+# License
+
+MIT License — see [LICENSE](LICENSE)
+
+---
+
+# Support
+
+[https://cash.app/$rdm3d](https://cash.app/$rdm3d)
