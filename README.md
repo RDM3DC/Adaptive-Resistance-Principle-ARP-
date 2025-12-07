@@ -2,21 +2,17 @@
 
 [![Sponsor RDM3DC](https://img.shields.io/badge/Sponsor-RDM3DC-ff69b4?logo=github-sponsors)](https://github.com/sponsors/RDM3DC)
 
-This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**—a family of adaptive-conductance laws inspired by electrorheological fluids, biological transport networks, and self-organizing field systems.
+This repository contains experiments, code, and notes exploring the **Adaptive Resistance Principle**—a family of adaptive-conductance laws inspired by electrorheological fluids, biological transients, and geometry-aware transport systems.
 
 ARP is expressed here in **two complementary modes**:
 
-* **ARP-I (Intensity-Driven, classical)**
-  \[
-  \dot G = \alpha\,|I| - \mu\,G
-  \]
+* **ARP-I (Intensity-Driven, classical)**  
+  $\dot G = \alpha |I| - \mu G$
 
-* **ARP-Φ (Flux-Driven, 2025 extension)**
-  \[
-  \dot G = \alpha\,\big|\dot\Phi\big| - \mu\,G
-  \]
+* **ARP-Φ (Flux-Driven, 2025 extension)**  
+  $\dot G = \alpha |\dot{\Phi}| - \mu G$
 
-Both describe how conductances, geometric weights, or interaction strengths adapt in response to a driving signal. ARP-Φ generalizes ARP-I by replacing instantaneous intensity with the *rate of change* of an underlying potential/field.
+Both describe how conductances, geometric weights, or interaction strengths adapt in response to a driving signal. ARP-Φ generalizes ARP-I by replacing instantaneous intensity with the *rate of change* of a field variable, capturing sensitivity to geometry and curvature.
 
 **Project website:** [https://rdm3dc.github.io/ARP-RDM3DC/](https://rdm3dc.github.io/ARP-RDM3DC/)  
 **X/Twitter:** [https://x.com/RDM3DC](https://x.com/RDM3DC)
@@ -25,7 +21,7 @@ Both describe how conductances, geometric weights, or interaction strengths adap
 
 # ⭐ Novelty & Scientific Positioning
 
-The core adaptive law explored in this repository—whether intensity-driven (ARP-I) or flux-driven (ARP-Φ)—is related to established work in adaptive flow networks, Physarum-type conductance updates, and biological morphogenesis.
+The core adaptive law explored in this repository—whether intensity-driven (ARP-I) or flux-driven (ARP-Φ)—is related to established work in adaptive flow networks, Physarum-type conductance updates, electrorheological fluids, and adaptive impedance control.
 
 This repository does **not** claim exclusive discovery of the differential equation form itself.
 
@@ -110,7 +106,7 @@ This generalizes ARP into geometric, field-based, and spacetime-like systems.
 
 # 📌 Shared Properties of ARP-I and ARP-Φ
 
-Both modes have identical mathematical structure. Let \(u(t) = |I(t)|\) or \(u(t) = |\dot\Phi(t)|\).
+Both modes have identical mathematical structure. Let $u(t) = |I(t)|$ or $u(t) = |	ext{\dot\Phi(t)}|$.
 
 Then in general:
 
@@ -126,13 +122,13 @@ Then in general:
 G(t) = e^{-\mu t}\!\left[G(0) + \alpha\!\int_0^t e^{\mu s}\,u(s)\,ds\right]
 \]
 
-A simple exponentially weighted causal filter with time-constant \(1/\mu\).
+A simple exponentially weighted causal filter with time-constant $1/\mu$.
 
 ---
 
 ## **Constant stimulus**
 
-If \(u(t)=u_0\):
+If $u(t)=u_0$:
 
 \[
 G(t) = G_\infty + \big(G(0)-G_\infty\big)e^{-\mu t},
@@ -148,13 +144,13 @@ G_\infty = \frac{\alpha u_0}{\mu}
 G_{k+1} = (1-\mu\Delta t)G_k + \alpha\Delta t\,u_k
 \]
 
-Stable for \(0 < \mu\Delta t < 2\).
+Stable for $0 < \mu\Delta t < 2$.
 
 ---
 
 ## **Positivity & bounds**
 
-If \(u(t)\le u_{\max}\):
+If $u(t)\le u_{\max}$:
 
 \[
 0 \le G(t) \le \frac{\alpha u_{\max}}{\mu}
@@ -164,25 +160,25 @@ If \(u(t)\le u_{\max}\):
 
 ## **Global exponential stability**
 
-Let \(e(t)=G(t)-G_\infty\):
+Let $e(t)=G(t)-G_\infty$:
 
 \[
 \dot e = -\mu e
 \quad\Rightarrow\quad
-e(t)=e(0)e^{-\mu t}
+ e(t)=e(0)e^{-\mu t}
 \]
 
 ---
 
 # 🌀 Multi-Edge / Network Form
 
-For edges \((i,j)\):
+For edges $(i,j)$:
 
 \[
 \dot G_{ij} = \alpha\,u_{ij} - \mu\,G_{ij}
 \]
 
-with \(u_{ij} = |I_{ij}|\) (ARP-I) or \(u_{ij}=|\dot\Phi_{ij}|\) (ARP-Φ).
+with $u_{ij} = |I_{ij}|$ (ARP-I) or $u_{ij}=|\dot\Phi_{ij}|$ (ARP-Φ).
 
 ---
 
@@ -198,19 +194,19 @@ In ARP-controlled Grover search:
 \hat G^* \approx 1.9184
 \]
 
-after factoring \(1/\sqrt{N}\) geometry. This constant stabilizes quantum gain against decoherence.
+after factoring $1/\sqrt{N}$ geometry. This constant stabilizes quantum gain against decoherence.
 
 ---
 
 ### **2. 1/√N Scaling + N-Independent Noise Budget**
 
-With \(\gamma_G,\mu_G\propto 1/\sqrt{N}\):
+With $\gamma_G,\mu_G\propto 1/\sqrt{N}$:
 
 \[
 G_{\text{angle}}^{\text{steady}} \propto \frac{1}{\sqrt{N}}
 \]
 
-Combined with Grover’s \(K(N)\propto\sqrt N\), the cancelable noise term becomes **O(1)**.
+Combined with Grover’s $K(N)\propto\sqrt N$, the cancelable noise term becomes **O(1)**.
 
 ---
 
@@ -224,7 +220,7 @@ In AQG+M simulations:
 - \mu_{\rm eff}G_{\rm eff}
 \]
 
-leading to universal geometry/matter ratios (e.g., \(\tilde G/\tilde P\approx 1.55\)), linking discrete ARP networks to adaptive curvature.
+leading to universal geometry/matter ratios (e.g., $\tilde G/\tilde P\approx 1.55$), linking discrete ARP networks to adaptive curvature.
 
 ---
 
