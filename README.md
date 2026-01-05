@@ -227,7 +227,7 @@ leading to universal geometry/matter ratios (e.g., $\tilde G/\tilde P\approx 1.5
 # 🧠 Interactive GPT Guides
 
 These links open custom GPT assistants for deeper exploration (requires an OpenAI account):
-
+https://chatgpt.com/g/g-695b42b4f0048191b0edb6795c9643cf-pr-root-guide
 * **Adaptive Resistance Guide**
 * **Adaptive Pi Geometry**
 * **Curve Memory Assistant**
